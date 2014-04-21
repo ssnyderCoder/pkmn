@@ -67,15 +67,16 @@ import net.flashpunk.Entity;
 					_dialogue.resume();
 				}
 			}
-			else
+			else if (!_player.isMoving())
 			{   if (Input.pressed(Key.SPACE))
 				{
 					doPlayerInteraction();
 				}
 				else if (Input.check((Key.UP || Key.DOWN || Key.LEFT || Key.RIGHT) && Input.lastKey))
 				{
-					doPlayerTouch();
+					
 					doPlayerMovement();
+					doPlayerTouch();
 				}
 			}
 			

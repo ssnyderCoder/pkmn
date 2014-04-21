@@ -67,6 +67,10 @@ package entities
 			super(GC.TILE_SIZE * tileX, GC.TILE_SIZE * tileY, _sprite, _hitbox);
 		}
 		
+		public function isMoving():Boolean {
+			return !_canMove;
+		}
+		
 		protected function onMovementComplete():void
 		{
 			_canMove = true;
