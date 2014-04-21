@@ -35,9 +35,14 @@ package entities
 		
 		public function touch():void 
 		{
-			var mapClass:Class = Maps.getMapData(_mapName);
-			if(mapClass){
-				FP.world = new MapWorld(mapClass, _mapX, _mapY, _warpDirection);
+			var mapWorld:MapWorld = MapWorld(world);
+			// If the world isn't a map world, this didn't even happen.
+			if (mapWorld)
+			{
+				var mapClass:Class = Maps.getMapData(_mapName);
+				if(mapClass){
+					mapWorld.setNewMap(mapClass, _mapX, _mapY, _warpDirection);
+				}
 			}
 		}
 		

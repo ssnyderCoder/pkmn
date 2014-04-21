@@ -10,6 +10,7 @@ package worlds
 	import entities.Interaction;
 	import entities.ITouchable;
 	import entities.Teleport;
+	import entities.TransitionScreen;
 	import flash.geom.Point;
 
 import net.flashpunk.Entity;
@@ -26,12 +27,16 @@ import net.flashpunk.Entity;
 	 */
 	public class MapWorld extends World 
 	{
+		private static const TRANSITION_TIME:Number = 0.5; //total time is double this
+		
 		private var _player:Actor;
+		private var _tempPlayer:Actor;
 		private var _rawMapData:Class;
 		private var _grid:Grid;
 		private var _map:Tilemap;
 		private var _mapEntity:Entity;
 		private var _dialogue:Dialogue;
+		private var _inputEnabled:Boolean = true;
 		
 		public function get player():Actor { return _player; }
 		
@@ -48,6 +53,41 @@ import net.flashpunk.Entity;
 			super.begin();
 		}
 		
+		public function setNewMap(map:Class, playerX:uint, playerY:uint, direction:String):void {
+			_rawMapData = map;
+			_tempPlayer = new Actor(playerX, playerY, direction, GC.MOVE_SPEED, Assets.SPRITE_RED);
+			beginTransition();
+		}
+		
+		private function beginTransition():void 
+		{
+			_inputEnabled = false;
+			
+			var transitionScreen:TransitionScreen = new TransitionScreen();
+			transitionScreen.activate(TransitionScreen.NONE_TO_WHITE, TRANSITION_TIME, midTransition);
+			this.add(transitionScreen);
+		}
+		
+		
+		private function midTransition():void 
+		{
+			this.removeAll();
+			_player = _tempPlayer;
+			_tempPlayer = null;
+			generateMap(_rawMapData);
+			add(_player);
+			
+			var transitionScreen:TransitionScreen = new TransitionScreen();
+			transitionScreen.activate(TransitionScreen.WHITE_TO_NONE, TRANSITION_TIME, endTransition);
+			this.add(transitionScreen);
+		}
+		
+		private function endTransition():void {
+			_inputEnabled = true;
+			var transitionScreen:Entity = (Entity)(this.getInstance("transition"));
+			this.remove(transitionScreen);
+		}
+		
 		/**
 		 * Display dialogue to the text box.
 		 * @param	dialogue The dialogue to display.
@@ -60,7 +100,10 @@ import net.flashpunk.Entity;
 		
 		override public function update():void 
 		{
-			if (_dialogue != null && _dialogue.world == this)
+			if (!_inputEnabled) {
+				//no input triggered
+			}
+			else if (_dialogue != null && _dialogue.world == this)
 			{
 				if (Input.pressed(Key.SPACE))
 				{
@@ -74,7 +117,6 @@ import net.flashpunk.Entity;
 				}
 				else if (Input.check((Key.UP || Key.DOWN || Key.LEFT || Key.RIGHT) && Input.lastKey))
 				{
-					
 					doPlayerMovement();
 					doPlayerTouch();
 				}
@@ -173,6 +215,7 @@ import net.flashpunk.Entity;
 					break;
 			}
 		}
+		
 		
 	}
 

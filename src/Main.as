@@ -14,7 +14,8 @@ package
 	 */
 	public class Main extends Engine
 	{
-		
+		public static const WIDTH:int = 160;
+		public static const HEIGHT:int = 144;
 		public function Main():void
 		{
 			super(160, 144, 60, true);
@@ -24,7 +25,7 @@ package
 		{
 			FP.screen.color = 0x000000;
 			FP.screen.scale = 4;
-			FP.world = new MapWorld(Maps.TEST2, 2, 2, Direction.DOWN);
+			FP.world = new MapWorld(Maps.TEST, 2, 2, Direction.DOWN);
 			super.init();
 		}
 	}
