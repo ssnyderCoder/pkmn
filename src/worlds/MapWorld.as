@@ -71,13 +71,20 @@ import net.flashpunk.Entity;
 		
 		private function midTransition():void 
 		{
-			this.removeAll();
+			var transitionScreen:TransitionScreen = (TransitionScreen)(this.getInstance("transition"));
+			var entities:Array = new Array();
+			this.getAll(entities);
+			var entity:Entity;
+			for each (entity in entities) {
+				if (entity != transitionScreen) {
+					this.remove(entity);
+				}
+			}
 			_player = _tempPlayer;
 			_tempPlayer = null;
 			generateMap(_rawMapData);
 			add(_player);
 			
-			var transitionScreen:TransitionScreen = new TransitionScreen();
 			transitionScreen.activate(TransitionScreen.WHITE_TO_NONE, TRANSITION_TIME, endTransition);
 			this.add(transitionScreen);
 		}
