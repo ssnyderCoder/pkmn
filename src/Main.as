@@ -1,5 +1,6 @@
 package
 {
+	import constants.Direction;
 	import constants.Maps;
 	import net.flashpunk.Engine;
 	import net.flashpunk.FP;
@@ -23,7 +24,7 @@ package
 		{
 			FP.screen.color = 0x000000;
 			FP.screen.scale = 4;
-			FP.world = new MapWorld(Maps.TEST);
+			FP.world = new MapWorld(Maps.TEST2, 2, 2, Direction.DOWN);
 			super.init();
 		}
 	}

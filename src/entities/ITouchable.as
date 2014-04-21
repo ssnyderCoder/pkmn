@@ -8,7 +8,7 @@ package entities
 	 */
 	public interface ITouchable 
 	{
-		public function touch():void;
+		function touch():void;
 	}
 	
 }

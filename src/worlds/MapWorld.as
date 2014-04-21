@@ -8,6 +8,8 @@ package worlds
 	import entities.DialogueNPC;
 	import entities.IInteractable;
 	import entities.Interaction;
+	import entities.ITouchable;
+	import entities.Teleport;
 	import flash.geom.Point;
 
 import net.flashpunk.Entity;
@@ -33,15 +35,15 @@ import net.flashpunk.Entity;
 		
 		public function get player():Actor { return _player; }
 		
-		public function MapWorld(map:Class) 
+		public function MapWorld(map:Class, playerX:uint, playerY:uint, direction:String) 
 		{
 			_rawMapData = map;
+			_player = new Actor(playerX, playerY, direction, GC.MOVE_SPEED, Assets.SPRITE_RED);
 		}
 		
 		override public function begin():void 
 		{
 			generateMap(_rawMapData);
-			_player = new Actor(2, 2, Direction.DOWN, GC.MOVE_SPEED, Assets.SPRITE_RED);
 			add(_player);
 			super.begin();
 		}
@@ -68,33 +70,12 @@ import net.flashpunk.Entity;
 			else
 			{   if (Input.pressed(Key.SPACE))
 				{
-					// Check for collision with an IInteractable in the direction the player is facing and handle it accordingly.
-					var interactionLocation:Point = Direction.GetDirectionValue(_player.facing);
-					var interactionObject:IInteractable = IInteractable(_player.collide("actor", _player.x + interactionLocation.x * GC.TILE_SIZE, _player.y + interactionLocation.y * GC.TILE_SIZE));
-					if (interactionObject != null)
-					{
-						interactionObject.interact();
-					}
+					doPlayerInteraction();
 				}
 				else if (Input.check((Key.UP || Key.DOWN || Key.LEFT || Key.RIGHT) && Input.lastKey))
 				{
-					switch (Input.lastKey)
-					{
-						case Key.UP:
-							_player.applyInput(Direction.UP);
-							break;
-						case Key.DOWN:
-							_player.applyInput(Direction.DOWN);
-							break;
-						case Key.LEFT:
-							_player.applyInput(Direction.LEFT);
-							break;
-						case Key.RIGHT:
-							_player.applyInput(Direction.RIGHT);
-							break;
-						default:
-							break;
-					}
+					doPlayerTouch();
+					doPlayerMovement();
 				}
 			}
 			
@@ -102,6 +83,17 @@ import net.flashpunk.Entity;
 			FP.camera.y = _player.y - 64;
 			
 			super.update();
+		}
+		
+		private function doPlayerTouch():void 
+		{
+			// Check for collision with an ITouchable in the direction the player is facing and handle it accordingly.
+			var interactionLocation:Point = Direction.GetDirectionValue(_player.facing);
+			var interactionObject:ITouchable = ITouchable(_player.collide("touchable", _player.x + interactionLocation.x * GC.TILE_SIZE, _player.y + interactionLocation.y * GC.TILE_SIZE));
+			if (interactionObject != null)
+			{
+				interactionObject.touch();
+			}
 		}
 		
 		public function getMap():Entity
@@ -139,6 +131,45 @@ import net.flashpunk.Entity;
 			for each (property in xmlData.Entities.DialogueNPC)
 			{
 				add(new DialogueNPC(property.@dialogue, uint(property.@x / GC.TILE_SIZE), uint(property.@y / GC.TILE_SIZE), Direction.DOWN, GC.MOVE_SPEED, Assets.SPRITE_SCIENTIST));
+			}
+			
+			for each (property in xmlData.Entities.Transition)
+			{
+				var transition:Teleport = new Teleport(uint(property.@x), uint(property.@y));
+				transition.setWarpPoint(property.@map, uint(property.@xTile), uint(property.@yTile), property.@face);
+				add(transition);
+			}
+		}
+		
+		private function doPlayerInteraction():void 
+		{
+			// Check for collision with an IInteractable in the direction the player is facing and handle it accordingly.
+			var interactionLocation:Point = Direction.GetDirectionValue(_player.facing);
+			var interactionObject:IInteractable = IInteractable(_player.collide("actor", _player.x + interactionLocation.x * GC.TILE_SIZE, _player.y + interactionLocation.y * GC.TILE_SIZE));
+			if (interactionObject != null)
+			{
+				interactionObject.interact();
+			}
+		}
+		
+		private function doPlayerMovement():void 
+		{
+			switch (Input.lastKey)
+			{
+				case Key.UP:
+					_player.applyInput(Direction.UP);
+					break;
+				case Key.DOWN:
+					_player.applyInput(Direction.DOWN);
+					break;
+				case Key.LEFT:
+					_player.applyInput(Direction.LEFT);
+					break;
+				case Key.RIGHT:
+					_player.applyInput(Direction.RIGHT);
+					break;
+				default:
+					break;
 			}
 		}
 		
