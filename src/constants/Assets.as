@@ -1,5 +1,6 @@
 package constants
 {
+	import flash.utils.Dictionary;
 	/**
 	 * ...
 	 * @author Zachary Lewis (http://zacharylew.is)
@@ -14,6 +15,18 @@ package constants
 		public static const SPRITE_REDBIKE:uint = 1;
 		public static const SPRITE_BLUE:uint = 2;
 		public static const SPRITE_SCIENTIST:uint = 3;
+		
+		private static const spriteIDs:Dictionary = new Dictionary();
+		{
+			spriteIDs["red"] = SPRITE_RED;
+			spriteIDs["redbike"] = SPRITE_REDBIKE;
+			spriteIDs["blue"] = SPRITE_BLUE;
+			spriteIDs["scientist"] = SPRITE_SCIENTIST;
+		}
+		
+		public static function getSpriteID(spriteName:String):uint {
+			return spriteIDs[spriteName];
+		}
 	}
 
 }

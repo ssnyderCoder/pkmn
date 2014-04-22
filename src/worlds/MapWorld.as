@@ -180,7 +180,7 @@ import net.flashpunk.Entity;
 			
 			for each (property in xmlData.Entities.DialogueNPC)
 			{
-				add(new DialogueNPC(property.@dialogue, uint(property.@x / GC.TILE_SIZE), uint(property.@y / GC.TILE_SIZE), Direction.DOWN, GC.MOVE_SPEED, Assets.SPRITE_SCIENTIST));
+				add(new DialogueNPC(property.@dialogue, uint(property.@x / GC.TILE_SIZE), uint(property.@y / GC.TILE_SIZE), Direction.DOWN, GC.MOVE_SPEED, Assets.getSpriteID(property.@spriteName)));
 			}
 			
 			for each (property in xmlData.Entities.Transition)

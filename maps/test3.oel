@@ -37,7 +37,7 @@
 11111111111111111111</Collision>
   <Entities>
     <Interaction id="0" x="112" y="80" dialogue="The great and&#xD;&#xA;well known&#xD;&#xA;Professor Bob&#xD;&#xA; lives here." />
-    <DialogueNPC id="1" x="112" y="208" dialogue="Where are you&#xD;&#xA;going?  Why&#xD;&#xA;not go back&#xD;&#xA;to the house?" />
+    <DialogueNPC id="1" x="112" y="208" dialogue="Where are you&#xD;&#xA;going?  Why&#xD;&#xA;not go back&#xD;&#xA;to the house?" spriteName="blue" />
     <Transition id="2" x="16" y="208" map="test2" xTile="5" yTile="1" face="down" />
     <Transition id="3" x="144" y="80" map="test" xTile="5" yTile="7" face="up" />
   </Entities>
