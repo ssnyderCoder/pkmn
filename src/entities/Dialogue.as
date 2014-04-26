@@ -18,6 +18,8 @@ public class Dialogue extends Entity
 	private var _paused:Boolean = false;
 	private var _textTick:uint = 0;
 	private const TEXT_SPEED:uint = 5;
+	private const MAX_LINE_LENGTH:uint = 17;
+	private const NEW_LINE:uint = 10;
 
 	public function Dialogue()
 	{
@@ -67,7 +69,7 @@ public class Dialogue extends Entity
 	
 	public function init(text:String):void
 	{
-		_text = text;
+		_text = formatForDisplay(text);
 		
 		// Reset dialogue.
 		_tilemap.setRect(1, 1, _tilemap.columns - 2, _tilemap.rows - 2, 0);
@@ -78,6 +80,26 @@ public class Dialogue extends Entity
 		// Begin dialogue.
 		_paused = false;
 	}
+	
+	//Formats a long single-line string into a multiple-line string that fits in the displayed text box
+	private function formatForDisplay(text:String):String
+	{
+		var words:Array = text.split(" ");
+		var newText:String = "";
+		var line:String = "";
+		var newLine:String = "";
+		for each (var word:String in words) 
+		{
+			newLine = line == "" ? line.concat(word) : line.concat(" ", word);
+			if (newLine.length > MAX_LINE_LENGTH) {
+				newText = newText.concat(line, "\n");
+				newLine = word;
+			}
+			line = newLine;
+		}
+		newText = newText.concat(line);
+		return newText;
+	}
 
 	override public function update():void
 	{
@@ -85,9 +107,8 @@ public class Dialogue extends Entity
 		{
 			_textTick = GC.TEXT_SPEED;
 			var charCode:uint = _text.charCodeAt(_characterIndex);
-			if (charCode == 10)
+			if (charCode == NEW_LINE)
 			{
-				// New line.
 				if (_rowIndex == 4)
 				{
 					// There is more dialog. Show the indicator and wait.
