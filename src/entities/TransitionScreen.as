@@ -10,7 +10,7 @@ package entities
 	import net.flashpunk.utils.Ease;
 	
 	/**
-	 * ...
+	 * When activated this entity shows a white flash used for transitioning between maps.
 	 * @author Sean Snyder
 	 */
 	public class TransitionScreen extends Entity 
