@@ -7,6 +7,7 @@ package worlds
 	import entities.Dialogue;
 	import entities.DialogueNPC;
 	import entities.IInteractable;
+	import entities.InGameMenu;
 	import entities.Interaction;
 	import entities.ITouchable;
 	import entities.Teleport;
@@ -36,6 +37,7 @@ import net.flashpunk.Entity;
 		private var _map:Tilemap;
 		private var _mapEntity:Entity;
 		private var _dialogue:Dialogue;
+		private var _menu:InGameMenu;
 		private var _inputEnabled:Boolean = true;
 		
 		public function get player():Actor { return _player; }
@@ -110,17 +112,29 @@ import net.flashpunk.Entity;
 			if (!_inputEnabled) {
 				//no input triggered
 			}
-			else if (_dialogue != null && _dialogue.world == this)
+			else if (_dialogue != null && _dialogue.world == this) //dialogue window
 			{
 				if (Input.pressed(Key.SPACE))
 				{
 					_dialogue.resume();
 				}
 			}
+			else if (_menu != null && _menu.world == this)
+			{
+				if (Input.pressed(Key.ENTER)) {
+					this.remove(_menu);
+					_menu = null;
+				}
+			}
 			else if (!_player.isMoving())
 			{   if (Input.pressed(Key.SPACE))
 				{
 					doPlayerInteraction();
+				}
+				else if (Input.pressed(Key.ENTER)) {
+					_menu = new InGameMenu();
+					_menu.x = Main.WIDTH - _menu.width;
+					this.add(_menu);
 				}
 				else if (Input.check((Key.UP || Key.DOWN || Key.LEFT || Key.RIGHT) && Input.lastKey))
 				{
