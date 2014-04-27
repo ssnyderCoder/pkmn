@@ -125,6 +125,12 @@ import net.flashpunk.Entity;
 					this.remove(_menu);
 					_menu = null;
 				}
+				else if (Input.pressed(Key.UP)) {
+					_menu.handleInput(Key.UP);
+				}
+				else if (Input.pressed(Key.DOWN)) {
+					_menu.handleInput(Key.DOWN);
+				}
 			}
 			else if (!_player.isMoving())
 			{   if (Input.pressed(Key.SPACE))
