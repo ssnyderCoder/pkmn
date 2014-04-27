@@ -37,8 +37,12 @@
 11111111111111111111</Collision>
   <Entities>
     <Interaction id="0" x="112" y="80" dialogue="The great and well known Professor Bob lives here." />
-    <DialogueNPC id="1" x="112" y="208" dialogue="Where are you going? Why not go back to the house?" spriteName="blue" />
+    <DialogueNPC id="1" x="48" y="224" dialogue="Where are you going? Why not go back to the house?" spriteName="blue" />
     <Transition id="2" x="16" y="208" map="test2" xTile="5" yTile="1" face="down" />
     <Transition id="3" x="144" y="80" map="test" xTile="5" yTile="7" face="up" />
+    <DialogueNPC id="4" x="224" y="80" dialogue="I love the mountains! I wish I could be a hiker!" spriteName="girl2" />
+    <DialogueNPC id="5" x="240" y="224" dialogue="I hate the mountains! I miss the ocean...." spriteName="swimmer" />
+    <DialogueNPC id="6" x="112" y="128" dialogue="Jealous?" spriteName="redbike" />
+    <DialogueNPC id="7" x="128" y="240" dialogue="Ugh, just great... It looks like ONE of us is going to have to change..." spriteName="red" />
   </Entities>
 </level>

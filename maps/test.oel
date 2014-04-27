@@ -23,5 +23,6 @@
     <DialogueNPC id="2" x="48" y="80" dialogue="Welcome to my home." spriteName="scientist" />
     <Interaction id="3" x="144" y="64" dialogue="These books seem to be untouched. They must be college textbooks." />
     <Interaction id="4" x="80" y="0" dialogue="All praise the HELIX FOSSIL!" />
+    <DialogueNPC id="5" x="48" y="32" dialogue="Where are the pokeballs!? I want a charmander!" spriteName="girl1" />
   </Entities>
 </level>
