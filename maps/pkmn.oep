@@ -110,6 +110,8 @@
       <ValueDefinitions>
         <ValueDefinition xsi:type="StringValueDefinition" Name="dialogue" Default="" MaxChars="-1" MultiLine="true" />
         <ValueDefinition xsi:type="StringValueDefinition" Name="spriteName" Default="scientist" MaxChars="-1" MultiLine="false" />
+        <ValueDefinition xsi:type="StringValueDefinition" Name="direction" Default="down" MaxChars="-1" MultiLine="false" />
+        <ValueDefinition xsi:type="StringValueDefinition" Name="behavior" Default="none" MaxChars="-1" MultiLine="false" />
       </ValueDefinitions>
       <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
     </EntityDefinition>

@@ -27,6 +27,7 @@ package entities
 		protected var _motion:MultiVarTween;
 		protected var _speed:uint;
 		protected var _hitbox:Hitbox;
+		private var _behavior:IBehavior;
 		
 		public function get facing():String { return _facing; }
 		
@@ -67,8 +68,8 @@ package entities
 			super(GC.TILE_SIZE * tileX, GC.TILE_SIZE * tileY, _sprite, _hitbox);
 		}
 		
-		public function isMoving():Boolean {
-			return !_canMove;
+		public function ableToMove():Boolean {
+			return _canMove;
 		}
 		
 		protected function onMovementComplete():void
@@ -83,45 +84,63 @@ package entities
 			_sprite.flipped = _facing == Direction.RIGHT;
 		}
 		
+		protected function move(direction:String):void
+		{
+			if (direction != _facing)
+			{
+				setFacing(direction);
+			}
+
+			var nextStep:Point = _location.add(Direction.GetDirectionValue(_facing));
+			var worldStep:Point = nextStep.clone();
+			worldStep.x *= GC.TILE_SIZE;
+			worldStep.y *= GC.TILE_SIZE;
+			
+			var map:Entity = MapWorld(world).getMap();
+			
+			// Check for possible movement.
+			if (worldStep.x >= 0 && worldStep.y >= 0 && worldStep.x < map.width && worldStep.y < map.height && !collideTypes(["maps", "actor"], worldStep.x, worldStep.y))
+			{
+				// Move one tile.
+				_location = nextStep;
+				
+				if (_facing == Direction.UP || _facing == Direction.DOWN)
+				{
+					// Handle shuffle with a two frame walk cycle.
+					_sprite.flipped = !_sprite.flipped;
+				}
+				
+				_sprite.play(direction, true);
+				_motion.tween(this, { x:_location.x * GC.TILE_SIZE, y:_location.y * GC.TILE_SIZE }, _speed);
+				_motion.start();
+				_canMove = false;
+			}
+		}
+		
 		public function applyInput(input:String):void
 		{
 			if (_canMove)
 			{
-				if (input != _facing)
-				{
-					setFacing(input);
-				}
-
-				var nextStep:Point = _location.add(Direction.GetDirectionValue(_facing));
-				var worldStep:Point = nextStep.clone();
-				worldStep.x *= GC.TILE_SIZE;
-				worldStep.y *= GC.TILE_SIZE;
-				
-				var map:Entity = MapWorld(world).getMap();
-				
-				// Check for possible movement.
-				if (worldStep.x >= 0 && worldStep.y >= 0 && worldStep.x < map.width && worldStep.y < map.height && !collideTypes(["maps", "actor"], worldStep.x, worldStep.y))
-				{
-					// Move one tile.
-					_location = nextStep;
-					
-					if (_facing == Direction.UP || _facing == Direction.DOWN)
-					{
-						// Handle shuffle with a two frame walk cycle.
-						_sprite.flipped = !_sprite.flipped;
-					}
-					
-					_sprite.play(input, true);
-					_motion.tween(this, { x:_location.x * GC.TILE_SIZE, y:_location.y * GC.TILE_SIZE }, _speed);
-					_motion.start();
-					_canMove = false;
-				}
+				move(input);
 				
 			}
 			else
 			{
 				// Drop input.
 			}
+		}
+		
+		override public function update():void 
+		{
+			super.update();
+			if (_behavior != null) {
+				_behavior.act(this);
+			}
+		}
+		
+		public function assignBehavior(behavior:IBehavior):void {
+			_behavior = behavior;
+			_behavior.restart(this);
 		}
 	}
 

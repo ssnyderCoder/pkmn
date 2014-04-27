@@ -4,6 +4,7 @@ package worlds
 	import constants.Direction;
 	import constants.GC;
 	import entities.Actor;
+	import entities.BehaviorFactory;
 	import entities.Dialogue;
 	import entities.DialogueNPC;
 	import entities.IInteractable;
@@ -29,7 +30,7 @@ import net.flashpunk.Entity;
 	public class MapWorld extends World 
 	{
 		private static const TRANSITION_TIME:Number = 0.5; //total time is double this
-		
+		private const behaviorFactory:BehaviorFactory = new BehaviorFactory();
 		private var _player:Actor;
 		private var _tempPlayer:Actor;
 		private var _rawMapData:Class;
@@ -132,7 +133,7 @@ import net.flashpunk.Entity;
 					_menu.handleInput(Key.DOWN);
 				}
 			}
-			else if (!_player.isMoving())
+			else if (_player.ableToMove())
 			{   if (Input.pressed(Key.SPACE))
 				{
 					doPlayerInteraction();
@@ -200,7 +201,9 @@ import net.flashpunk.Entity;
 			
 			for each (property in xmlData.Entities.DialogueNPC)
 			{
-				add(new DialogueNPC(property.@dialogue, uint(property.@x / GC.TILE_SIZE), uint(property.@y / GC.TILE_SIZE), Direction.DOWN, GC.MOVE_SPEED, Assets.getSpriteID(property.@spriteName)));
+				var npc:DialogueNPC = new DialogueNPC(property.@dialogue, uint(property.@x / GC.TILE_SIZE), uint(property.@y / GC.TILE_SIZE), property.@direction, GC.MOVE_SPEED, Assets.getSpriteID(property.@spriteName));
+				npc.assignBehavior(behaviorFactory.getBehavior(property.@behavior));
+				add(npc);
 			}
 			
 			for each (property in xmlData.Entities.Transition)

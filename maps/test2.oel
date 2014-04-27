@@ -20,7 +20,7 @@
   <Entities>
     <Transition id="0" x="80" y="0" map="test3" xTile="1" yTile="14" face="down" />
     <Interaction id="1" x="48" y="48" dialogue="Be careful! It's dangerous out there!" />
-    <DialogueNPC id="2" x="80" y="112" dialogue="Sorry, but I simply can't allow you to leave...." spriteName="scientist" />
-    <DialogueNPC id="3" x="112" y="32" dialogue="Don't worry. We are safe here...." spriteName="man1" />
+    <DialogueNPC id="2" x="80" y="112" dialogue="Sorry, but I simply can't allow you to leave...." spriteName="scientist" direction="up" behavior="none" />
+    <DialogueNPC id="3" x="112" y="32" dialogue="Don't worry. We are safe here...." spriteName="man1" direction="down" behavior="none" />
   </Entities>
 </level>
