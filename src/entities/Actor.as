@@ -77,14 +77,14 @@ package entities
 			_canMove = true;
 		}
 		
-		protected function setFacing(facing:String):void
+		public function setFacing(facing:String):void
 		{
 			_facing = facing;
 			_sprite.play(_facing, true, 1);
 			_sprite.flipped = _facing == Direction.RIGHT;
 		}
 		
-		protected function move(direction:String):void
+		public function move(direction:String):void
 		{
 			if (direction != _facing)
 			{
@@ -140,7 +140,9 @@ package entities
 		
 		public function assignBehavior(behavior:IBehavior):void {
 			_behavior = behavior;
-			_behavior.restart(this);
+			if (_behavior != null) {
+				_behavior.restart(this);
+			}
 		}
 	}
 

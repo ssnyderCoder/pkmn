@@ -17,13 +17,16 @@ package entities
 		public function act(actor:Actor):Boolean 
 		{
 			if (actor.ableToMove()) {
-				actor.facing = direction;
+				actor.setFacing(direction);
+				return true;
 			}
+			return false;
 		}
 		
 		public function restart(actor:Actor):Boolean 
 		{
 			direction = actor.facing;
+			return true;
 		}
 		
 	}

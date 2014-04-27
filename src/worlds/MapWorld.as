@@ -102,10 +102,10 @@ import net.flashpunk.Entity;
 		 * Display dialogue to the text box.
 		 * @param	dialogue The dialogue to display.
 		 */
-		public function showDialogue(dialogue:String):void
+		public function showDialogue(dialogue:String, onComplete:Function = null):void
 		{
 			_dialogue = Dialogue(create(Dialogue, true));
-			_dialogue.init(dialogue);
+			_dialogue.init(dialogue, onComplete);
 		}
 		
 		override public function update():void 

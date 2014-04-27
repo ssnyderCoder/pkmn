@@ -17,6 +17,7 @@ public class Dialogue extends Entity
 	private var _rowIndex:uint = 2;
 	private var _paused:Boolean = false;
 	private var _textTick:uint = 0;
+	private var _dialogueComplete:Function;
 	private const TEXT_SPEED:uint = 5;
 	private const MAX_LINE_LENGTH:uint = 17;
 	private const NEW_LINE:uint = 10;
@@ -54,6 +55,9 @@ public class Dialogue extends Entity
 		{
 			if (_characterIndex >= _text.length)
 			{
+				if (_dialogueComplete != null) {
+					_dialogueComplete();
+				}
 				world.recycle(this);
 			}
 			else
@@ -67,9 +71,10 @@ public class Dialogue extends Entity
 		}
 	}
 	
-	public function init(text:String):void
+	public function init(text:String, onComplete:Function = null):void
 	{
 		_text = formatForDisplay(text);
+		_dialogueComplete = onComplete;
 		
 		// Reset dialogue.
 		_tilemap.setRect(1, 1, _tilemap.columns - 2, _tilemap.rows - 2, 0);

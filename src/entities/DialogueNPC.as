@@ -25,8 +25,11 @@ package entities
 				// Turn to look at the player.
 				setFacing(Direction.GetOppositeDirection(MapWorld(world).player.facing));
 				
+				// Unable to move around while talking
+				_canMove = false;
+				
 				// Spit some game.
-				MapWorld(world).showDialogue(_dialogue);
+				MapWorld(world).showDialogue(_dialogue, onMovementComplete);
 			}
 		}
 		
