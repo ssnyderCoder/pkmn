@@ -1,5 +1,6 @@
 package entities 
 {
+	import entities.behaviors.BehaviorTwitch;
 	import entities.behaviors.BehaviorWander;
 	import entities.behaviors.BehaviorWatch;
 	import flash.utils.Dictionary;
@@ -15,6 +16,7 @@ package entities
 		{
 			behaviors["watch"] = BehaviorWatch;
 			behaviors["wander"] = BehaviorWander;
+			behaviors["twitch"] = BehaviorTwitch;
 		}
 		
 		public function getBehavior(name:String):IBehavior {
