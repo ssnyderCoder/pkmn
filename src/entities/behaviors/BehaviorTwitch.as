@@ -10,7 +10,7 @@ package entities.behaviors
 	 */
 	public class BehaviorTwitch implements IBehavior 
 	{
-		private static const TICKS_PER_ACTION:int = 15;
+		private static const TICKS_PER_ACTION:int = 10;
 		private var ticksElapsed:int = 0;
 		public function BehaviorTwitch() 
 		{
