@@ -24,13 +24,23 @@ package worlds
 		private var _options:GameOptions;
 		private var _prevWorld:World;
 		private var _tilemap:Tilemap;
+		private var _configIndexes:Array = [0, 0, 0];
 		public function OptionsWorld(options:GameOptions, prevWorld:World) 
 		{
 			super();
 			_options = options;
 			_prevWorld = prevWorld;
 			_tilemap = new Tilemap(Assets.MENU_SPRITES, Main.WIDTH, Main.HEIGHT, 8, 8);
+			initConfig();
 			setupMenu();
+		}
+		
+		private function initConfig():void 
+		{
+			_configIndexes[0] = _options.textSpeed == GameOptions.TEXT_FAST ? 0 :
+				                _options.textSpeed == GameOptions.TEXT_MEDIUM ? 1 : 2;
+			_configIndexes[1] = _options.battleScene == GameOptions.SCENE_ON ? 0 : 1;
+			_configIndexes[2] = _options.battleStyle == GameOptions.STYLE_SHIFT ? 0 : 1;
 		}
 		
 		private function setupMenu():void 
@@ -54,22 +64,33 @@ package worlds
 				var columnIndex:int = 1;
 				var rowIndex:int = j * 5 + 1;
 				var text:String = BOX_TITLES[j] + "\n" + BOX_CHOICES[j];
-				for (var i:int = 0; i < text.length; i++)
+				setTileText(columnIndex, rowIndex, text);
+				// Cursor
+				_tilemap.setTile(1 + INDEXES_CHOICES[j][_configIndexes[j]], j*5 + 3, 8); //Cursor
+				
+			}
+			// Cancel
+			_tilemap.setTile(1, 16, 8); //Cursor
+			setTileText(2, 16, CANCEL);
+			addGraphic(_tilemap);
+		}
+		
+		private function setTileText(columnIndex:int, rowIndex:int, text:String):void 
+		{
+			for (var i:int = 0; i < text.length; i++)
+			{
+				var charCode:uint = text.charCodeAt(i);
+				if (charCode == NEW_LINE)
 				{
-					var charCode:uint = text.charCodeAt(i);
-					if (charCode == NEW_LINE)
-					{
-						columnIndex = 1;
-						rowIndex += 2;
-					}
-					else if (columnIndex < _tilemap.columns - 1)
-					{
-						_tilemap.setTile(columnIndex, rowIndex, charCode);
-						columnIndex++;
-					}
+					columnIndex = 1;
+					rowIndex += 2;
+				}
+				else if (columnIndex < _tilemap.columns - 1)
+				{
+					_tilemap.setTile(columnIndex, rowIndex, charCode);
+					columnIndex++;
 				}
 			}
-			addGraphic(_tilemap);
 		}
 		
 		override public function update():void 
