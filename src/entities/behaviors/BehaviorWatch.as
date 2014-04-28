@@ -1,5 +1,7 @@
-package entities 
+package entities.behaviors 
 {
+	import entities.Actor;
+	import entities.IBehavior;
 	/**
 	 * ...
 	 * @author Sean Snyder

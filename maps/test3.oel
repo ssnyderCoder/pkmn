@@ -40,9 +40,9 @@
     <DialogueNPC id="1" x="48" y="224" dialogue="Don't wander off too far." spriteName="blue" direction="down" behavior="none" />
     <Transition id="2" x="16" y="208" map="test2" xTile="5" yTile="1" face="down" />
     <Transition id="3" x="144" y="80" map="test" xTile="5" yTile="7" face="up" />
-    <DialogueNPC id="4" x="224" y="80" dialogue="I love the mountains! I wish I could be a hiker!" spriteName="girl2" direction="down" behavior="none" />
-    <DialogueNPC id="5" x="240" y="224" dialogue="I hate the mountains! I miss the ocean...." spriteName="swimmer" direction="down" behavior="none" />
-    <DialogueNPC id="6" x="112" y="128" dialogue="Jealous?" spriteName="redbike" direction="down" behavior="none" />
-    <DialogueNPC id="7" x="128" y="240" dialogue="Ugh, just great... It looks like ONE of us is going to have to change..." spriteName="red" direction="down" behavior="none" />
+    <DialogueNPC id="4" x="224" y="80" dialogue="I love the mountains! I wish I could be a hiker!" spriteName="girl2" direction="down" behavior="wander" />
+    <DialogueNPC id="5" x="240" y="224" dialogue="I hate the mountains! I miss the ocean...." spriteName="swimmer" direction="down" behavior="wander" />
+    <DialogueNPC id="6" x="112" y="128" dialogue="Jealous?" spriteName="redbike" direction="down" behavior="wander" />
+    <DialogueNPC id="7" x="128" y="240" dialogue="Ugh, just great... It looks like ONE of us is going to have to change..." spriteName="red" direction="down" behavior="wander" />
   </Entities>
 </level>

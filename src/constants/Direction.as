@@ -1,6 +1,7 @@
 package constants 
 {
 	import flash.geom.Point;
+	import net.flashpunk.FP;
 	/**
 	 * ...
 	 * @author Zachary Lewis (http://zacharylew.is)
@@ -11,6 +12,7 @@ package constants
 		public static const DOWN:String = "down";
 		public static const LEFT:String = "left";
 		public static const RIGHT:String = "right";
+		private static const DIRECTIONS:Array = new Array(UP, DOWN, LEFT, RIGHT);
 		
 		public static function GetDirectionValue(direction:String):Point
 		{
@@ -61,6 +63,11 @@ package constants
 			}
 			
 			return s;
+		}
+		
+		public static function GetRandomDirection():String {
+			var direction:String = FP.choose(DIRECTIONS);
+			return direction;
 		}
 	}
 

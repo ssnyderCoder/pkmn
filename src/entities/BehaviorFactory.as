@@ -1,5 +1,7 @@
 package entities 
 {
+	import entities.behaviors.BehaviorWander;
+	import entities.behaviors.BehaviorWatch;
 	import flash.utils.Dictionary;
 	/**
 	 * ...
@@ -12,6 +14,7 @@ package entities
 		public function BehaviorFactory() 
 		{
 			behaviors["watch"] = BehaviorWatch;
+			behaviors["wander"] = BehaviorWander;
 		}
 		
 		public function getBehavior(name:String):IBehavior {
