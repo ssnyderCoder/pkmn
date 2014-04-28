@@ -124,15 +124,13 @@ import net.flashpunk.Entity;
 			}
 			else if (_menu != null && _menu.world == this)
 			{
-				if (Input.pressed(Key.ENTER)) {
+				if (_menu.isFinished() || Input.pressed(Key.ENTER)) {
 					this.remove(_menu);
 					_menu = null;
 				}
-				else if (Input.pressed(Key.UP)) {
-					_menu.handleInput(Key.UP);
-				}
-				else if (Input.pressed(Key.DOWN)) {
-					_menu.handleInput(Key.DOWN);
+				else if (Input.pressed(Key.UP) || Input.pressed(Key.DOWN) || Input.pressed(Key.SPACE))
+				{
+					_menu.handleInput(Input.lastKey);
 				}
 			}
 			else if (_player.ableToMove())

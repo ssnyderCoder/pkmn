@@ -29,8 +29,10 @@ package entities
 		                                 "EXIT");
 		
 		private var _tilemap:Tilemap;
-		private var _cursorPosition:uint = 0; //0-6
+		private var _cursorPosition:uint = 0; //0 to numSelections - 1
 		private var _numSelections:uint = 0;
+		private var _selectionFunctions:Array = new Array();
+		private var _finished:Boolean = false;
 		
 		public function InGameMenu(info:TrainerInfo, x:Number=0, y:Number=0) 
 		{
@@ -42,6 +44,18 @@ package entities
 			graphic.scrollY = 0;
 			this.setHitbox(_tilemap.width, _tilemap.height);
 			setupMenu(info);
+			setupSelections(info);
+		}
+		
+		private function setupSelections(info:TrainerInfo):void 
+		{
+			if (info.hasPokedex) _selectionFunctions.push(selectPokedex);
+			if (info.hasPokemon) _selectionFunctions.push(selectPokemon);
+			if (info.hasItems) _selectionFunctions.push(selectItems);
+			if (info.hasTrainerCard) _selectionFunctions.push(selectName);
+			if (info.canSaveGame) _selectionFunctions.push(selectSave);
+			_selectionFunctions.push(selectOptions);
+			_selectionFunctions.push(selectExit);
 		}
 		
 		private function getNumberSelections(info:TrainerInfo):uint 
@@ -113,7 +127,37 @@ package entities
 			else if (keyCode == Key.DOWN) {
 				_cursorPosition = _cursorPosition == _numSelections - 1 ? 0 : _cursorPosition + 1;
 			}
+			else if (keyCode == Key.SPACE) {
+				var select:Function = _selectionFunctions[_cursorPosition];
+				select();
+			}
 			_tilemap.setTile(1, (_cursorPosition * 2) + 2, 9);
+		}
+		
+		public function isFinished():Boolean {
+			return _finished;
+		}
+		
+		private function selectPokedex():void {
+			
+		}
+		private function selectPokemon():void {
+			
+		}
+		private function selectItems():void {
+			
+		}
+		private function selectName():void {
+			
+		}
+		private function selectSave():void {
+			
+		}
+		private function selectOptions():void {
+			
+		}
+		private function selectExit():void {
+			_finished = true;
 		}
 		
 	}
