@@ -54,11 +54,6 @@ import net.flashpunk.Entity;
 			add(_player);
 		}
 		
-		override public function begin():void 
-		{
-			super.begin();
-		}
-		
 		public function setNewMap(map:Class, playerX:uint, playerY:uint, direction:String):void {
 			_rawMapData = map;
 			_tempPlayer = new Actor(playerX, playerY, direction, GC.MOVE_SPEED, Assets.SPRITE_RED);
@@ -73,7 +68,6 @@ import net.flashpunk.Entity;
 			transitionScreen.activate(TransitionScreen.NONE_TO_WHITE, TRANSITION_TIME, midTransition);
 			this.add(transitionScreen);
 		}
-		
 		
 		private function midTransition():void 
 		{
