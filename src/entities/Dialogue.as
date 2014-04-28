@@ -46,6 +46,8 @@ public class Dialogue extends Entity
 		// Pause the dialogue until it has been initialized with text.
 		_paused = true;
 		
+		layer = RenderLayers.DIALOGUE;
+		
 		super(0, 0, _tilemap);
 	}
 

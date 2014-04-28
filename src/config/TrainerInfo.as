@@ -12,6 +12,12 @@ package config
 		public var hasItems:Boolean = false;
 		public var canSaveGame:Boolean = false;
 		public var hasTrainerCard:Boolean = false;
+		private var _gameOptions:GameOptions = new GameOptions();
+		
+		public function get gameOptions():GameOptions 
+		{
+			return _gameOptions;
+		}
 	}
 
 }

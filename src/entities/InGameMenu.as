@@ -3,12 +3,14 @@ package entities
 	import config.TrainerInfo;
 	import constants.Assets;
 	import net.flashpunk.Entity;
+	import net.flashpunk.FP;
 	import net.flashpunk.Graphic;
 	import net.flashpunk.graphics.Graphiclist;
 	import net.flashpunk.graphics.Stamp;
 	import net.flashpunk.graphics.Tilemap;
 	import net.flashpunk.Mask;
 	import net.flashpunk.utils.Key;
+	import worlds.OptionsWorld;
 	
 	/**
 	 * ...
@@ -33,10 +35,12 @@ package entities
 		private var _numSelections:uint = 0;
 		private var _selectionFunctions:Array = new Array();
 		private var _finished:Boolean = false;
+		private var _trainerInfo:TrainerInfo;
 		
 		public function InGameMenu(info:TrainerInfo, x:Number=0, y:Number=0) 
 		{
 			super(x, y);
+			_trainerInfo = info;
 			_numSelections = getNumberSelections(info);
 			_tilemap = new Tilemap(Assets.MENU_SPRITES, 80, (2 + _numSelections*2) * 8, 8, 8);
 			this.graphic = _tilemap;
@@ -45,6 +49,8 @@ package entities
 			this.setHitbox(_tilemap.width, _tilemap.height);
 			setupMenu(info);
 			setupSelections(info);
+			
+			layer = RenderLayers.MENU1;
 		}
 		
 		private function setupSelections(info:TrainerInfo):void 
@@ -154,7 +160,7 @@ package entities
 			
 		}
 		private function selectOptions():void {
-			
+			FP.world = new OptionsWorld(_trainerInfo.gameOptions, this.world)
 		}
 		private function selectExit():void {
 			_finished = true;

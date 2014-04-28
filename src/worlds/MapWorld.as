@@ -12,6 +12,7 @@ package worlds
 	import entities.InGameMenu;
 	import entities.Interaction;
 	import entities.ITouchable;
+	import entities.RenderLayers;
 	import entities.Teleport;
 	import entities.TransitionScreen;
 	import flash.geom.Point;
@@ -49,12 +50,12 @@ import net.flashpunk.Entity;
 		{
 			_rawMapData = map;
 			_player = new Actor(playerX, playerY, direction, GC.MOVE_SPEED, Assets.SPRITE_RED);
+			generateMap(_rawMapData);
+			add(_player);
 		}
 		
 		override public function begin():void 
 		{
-			generateMap(_rawMapData);
-			add(_player);
 			super.begin();
 		}
 		
@@ -192,6 +193,7 @@ import net.flashpunk.Entity;
 			
 			_mapEntity = add(new Entity(0, 0, _map, _grid));
 			_mapEntity.type = "maps";
+			_mapEntity.layer = RenderLayers.TILES;
 			
 			// Add actors.
 			for each (property in xmlData.Entities.Interaction)

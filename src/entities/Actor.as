@@ -63,6 +63,7 @@ package entities
 			addTween(_motion, false);
 			
 			type = "actor";
+			layer = RenderLayers.ACTOR;
 			
 			// Set the Entity's location and graphic.
 			super(GC.TILE_SIZE * tileX, GC.TILE_SIZE * tileY, _sprite, _hitbox);

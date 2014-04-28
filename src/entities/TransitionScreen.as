@@ -29,6 +29,8 @@ package entities
 			this.graphic = canvas;
 			canvas.scrollX = 0;
 			canvas.scrollY = 0;
+			
+			layer = RenderLayers.TRANSITION;
 		}
 		
 		public function activate(mode:int, timeInSeconds:Number = 0.5, onFinished:Function = null):void {
