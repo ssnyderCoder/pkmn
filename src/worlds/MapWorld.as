@@ -1,5 +1,6 @@
 package worlds 
 {
+	import config.TrainerInfo;
 	import constants.Assets;
 	import constants.Direction;
 	import constants.GC;
@@ -40,6 +41,7 @@ import net.flashpunk.Entity;
 		private var _dialogue:Dialogue;
 		private var _menu:InGameMenu;
 		private var _inputEnabled:Boolean = true;
+		private var _trainerInfo:TrainerInfo = new TrainerInfo();
 		
 		public function get player():Actor { return _player; }
 		
@@ -139,7 +141,7 @@ import net.flashpunk.Entity;
 					doPlayerInteraction();
 				}
 				else if (Input.pressed(Key.ENTER)) {
-					_menu = new InGameMenu();
+					_menu = new InGameMenu(_trainerInfo);
 					_menu.x = Main.WIDTH - _menu.width;
 					this.add(_menu);
 				}
