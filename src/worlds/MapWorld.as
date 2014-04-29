@@ -102,7 +102,7 @@ import net.flashpunk.Entity;
 		public function showDialogue(dialogue:String, onComplete:Function = null):void
 		{
 			_dialogue = Dialogue(create(Dialogue, true));
-			_dialogue.init(dialogue, onComplete);
+			_dialogue.init(dialogue, _trainerInfo.gameOptions.textSpeed, onComplete);
 		}
 		
 		override public function update():void 

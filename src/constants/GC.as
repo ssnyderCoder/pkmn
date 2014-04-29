@@ -14,9 +14,6 @@ package constants
 		
 		/** The number of frames it takes to change the character's facing. */
 		public static const TURN_SPEED:uint = 10;
-
-		/** The number of frames between letters. */
-		public static const TEXT_SPEED:uint = 1;
 	}
 
 }

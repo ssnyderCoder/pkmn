@@ -3,6 +3,7 @@
  */
 package entities
 {
+import config.GameOptions;
 import constants.Assets;
 import constants.GC;
 import net.flashpunk.Entity;
@@ -18,9 +19,11 @@ public class Dialogue extends Entity
 	private var _paused:Boolean = false;
 	private var _textTick:uint = 0;
 	private var _dialogueComplete:Function;
-	private const TEXT_SPEED:uint = 5;
-	private const MAX_LINE_LENGTH:uint = 17;
-	private const NEW_LINE:uint = 10;
+	
+	private var textSpeed:uint;
+	
+	private static const MAX_LINE_LENGTH:uint = 17;
+	private static const NEW_LINE:uint = 10;
 
 	public function Dialogue()
 	{
@@ -73,8 +76,11 @@ public class Dialogue extends Entity
 		}
 	}
 	
-	public function init(text:String, onComplete:Function = null):void
+	public function init(text:String, speedSetting:int=GameOptions.TEXT_MEDIUM, onComplete:Function = null):void
 	{
+		
+		textSpeed = speedSetting == GameOptions.TEXT_SLOW ? 2 :
+			         speedSetting == GameOptions.TEXT_MEDIUM ? 1 : 0;
 		_text = formatForDisplay(text);
 		_dialogueComplete = onComplete;
 		
@@ -112,7 +118,7 @@ public class Dialogue extends Entity
 	{
 		if (_textTick == 0 && !_paused && _characterIndex < _text.length)
 		{
-			_textTick = GC.TEXT_SPEED;
+			_textTick = textSpeed;
 			var charCode:uint = _text.charCodeAt(_characterIndex);
 			if (charCode == NEW_LINE)
 			{
