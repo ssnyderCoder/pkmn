@@ -6,6 +6,7 @@ package entities
 import config.GameOptions;
 import constants.Assets;
 import constants.GC;
+import entities.menu.MenuBuilder;
 import net.flashpunk.Entity;
 import net.flashpunk.graphics.Tilemap;
 
@@ -13,6 +14,7 @@ public class Dialogue extends Entity
 {
 	private var _tilemap:Tilemap;
 	private var _text:String;
+	
 	private var _characterIndex:uint = 0;
 	private var _columnIndex:uint = 1;
 	private var _rowIndex:uint = 2;
@@ -23,7 +25,6 @@ public class Dialogue extends Entity
 	private var textSpeed:uint;
 	
 	private static const MAX_LINE_LENGTH:uint = 17;
-	private static const NEW_LINE:uint = 10;
 
 	public function Dialogue()
 	{
@@ -35,16 +36,8 @@ public class Dialogue extends Entity
 		
 		// Set up frame.
 		_tilemap.floodFill(0, 0, 0);
-		// Corners
-		_tilemap.setTile(0, 0, 1);
-		_tilemap.setTile(_tilemap.columns - 1, 0, 2);
-		_tilemap.setTile(0, _tilemap.rows - 1, 3);
-		_tilemap.setTile(_tilemap.columns - 1, _tilemap.rows - 1, 4);
-		// Borders
-		_tilemap.setRect(1, 0, _tilemap.columns - 2, 1, 5);
-		_tilemap.setRect(1, _tilemap.rows - 1, _tilemap.columns - 2, 1, 5);
-		_tilemap.setRect(0, 1, 1, _tilemap.rows - 2, 6);
-		_tilemap.setRect(_tilemap.columns - 1, 1, 1, _tilemap.rows - 2, 6);
+		
+		MenuBuilder.createBox(_tilemap, 0, 0, _tilemap.columns, _tilemap.rows);
 		
 		// Pause the dialogue until it has been initialized with text.
 		_paused = true;
@@ -119,29 +112,17 @@ public class Dialogue extends Entity
 		if (_textTick == 0 && !_paused && _characterIndex < _text.length)
 		{
 			_textTick = textSpeed;
-			var charCode:uint = _text.charCodeAt(_characterIndex);
-			if (charCode == NEW_LINE)
+			
+			var newIndexes:Array = MenuBuilder.addText(_tilemap, _text.charAt(_characterIndex), _columnIndex, _rowIndex, 1);
+			_columnIndex = _rowIndex == newIndexes[1] ? newIndexes[0] : 1;
+			_rowIndex = newIndexes[1];
+			if (_rowIndex == 6)
 			{
-				if (_rowIndex == 4)
-				{
-					// There is more dialog. Show the indicator and wait.
-					_tilemap.setTile(_tilemap.columns - 2, _tilemap.rows - 2, 94);
-					_paused = true;
-				}
-				else
-				{
-					_columnIndex = 1;
-					_rowIndex += 2;
-				}
+				// There is more dialog. Show the indicator and wait.
+				_tilemap.setTile(_tilemap.columns - 2, _tilemap.rows - 2, 94);
+				_paused = true;
 			}
-			else
-			{
-				if (_columnIndex < _tilemap.columns - 1)
-				{
-					_tilemap.setTile(_columnIndex, _rowIndex, charCode);
-					_columnIndex++;
-				}
-			}
+			
 			_characterIndex++;
 		}
 		else if (_characterIndex >= _text.length)

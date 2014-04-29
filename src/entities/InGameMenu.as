@@ -2,6 +2,7 @@ package entities
 {
 	import config.TrainerInfo;
 	import constants.Assets;
+	import entities.menu.MenuBuilder;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.Graphic;
@@ -18,10 +19,6 @@ package entities
 	 */
 	public class InGameMenu extends Entity 
 	{
-		private static const TILDA:uint = 126;
-		private static const PKMN_TILDA_E:uint = 92;
-		private static const NEW_LINE:uint = 10;
-		//treats ~ as pokemon ~e
 		private static const MENU_TEXTS:Array = new Array("POK~DEX\n",
 		                                 "POK~MON\n",
 		                                 "ITEM\n",
@@ -79,16 +76,9 @@ package entities
 		{
 			// Set up frame.
 			_tilemap.floodFill(0, 0, 0);
-			// Corners
-			_tilemap.setTile(0, 0, 1);
-			_tilemap.setTile(_tilemap.columns - 1, 0, 2);
-			_tilemap.setTile(0, _tilemap.rows - 1, 3);
-			_tilemap.setTile(_tilemap.columns - 1, _tilemap.rows - 1, 4);
-			// Borders
-			_tilemap.setRect(1, 0, _tilemap.columns - 2, 1, 5);
-			_tilemap.setRect(1, _tilemap.rows - 1, _tilemap.columns - 2, 1, 5);
-			_tilemap.setRect(0, 1, 1, _tilemap.rows - 2, 6);
-			_tilemap.setRect(_tilemap.columns - 1, 1, 1, _tilemap.rows - 2, 6);
+			
+			MenuBuilder.createBox(_tilemap, 0, 0, _tilemap.columns, _tilemap.rows);
+			
 			// Cursor
 			_tilemap.setTile(1, 2, 9);
 			// Text
@@ -101,28 +91,8 @@ package entities
 			menuText = menuText.concat(MENU_TEXTS[5]); //OPTIONS
 			menuText = menuText.concat(MENU_TEXTS[6]); //EXIT
 			menuText = menuText.replace("NAME", info.name); //set name properly
-			var columnIndex:int = 2;
-			var rowIndex:int = 2;
-			for (var i:int = 0; i < menuText.length; i++)
-			{
-				var charCode:uint = menuText.charCodeAt(i);
-				if (charCode == NEW_LINE)
-				{
-					columnIndex = 2;
-					rowIndex += 2;
-				}
-				else
-				{
-					if (charCode == TILDA) {
-						charCode = PKMN_TILDA_E;
-					}
-					if (columnIndex < _tilemap.columns - 1)
-					{
-						_tilemap.setTile(columnIndex, rowIndex, charCode);
-						columnIndex++;
-					}
-				}
-			}
+			MenuBuilder.addText(_tilemap, menuText, 2, 2, 1);
+			
 		}
 		
 		public function handleInput(keyCode:int):void {

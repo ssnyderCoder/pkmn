@@ -2,6 +2,7 @@ package worlds
 {
 	import config.GameOptions;
 	import constants.Assets;
+	import entities.menu.MenuBuilder;
 	import net.flashpunk.FP;
 	import net.flashpunk.graphics.Tilemap;
 	import net.flashpunk.utils.Input;
@@ -51,50 +52,23 @@ package worlds
 			// 3 full-width 5-height Boxes
 			for (var j:int = 0; j < 3; j++) 
 			{
-				// Corners
-				_tilemap.setTile(0, j*5, 1);
-				_tilemap.setTile(_tilemap.columns - 1, j*5, 2);
-				_tilemap.setTile(0, j*5 + 4, 3);
-				_tilemap.setTile(_tilemap.columns - 1, j*5 + 4, 4);
-				// Borders
-				_tilemap.setRect(1, j*5, _tilemap.columns - 2, 1, 5);
-				_tilemap.setRect(1, j*5 + 4, _tilemap.columns - 2, 1, 5);
-				_tilemap.setRect(0, j*5 + 1, 1, 3, 6);
-				_tilemap.setRect(_tilemap.columns - 1, j * 5 + 1, 1, 3, 6);
+				MenuBuilder.createBox(_tilemap, 0, j*5, _tilemap.columns, 5);
 				// Text
 				var columnIndex:int = 1;
 				var rowIndex:int = j * 5 + 1;
 				var text:String = BOX_TITLES[j] + "\n" + BOX_CHOICES[j];
-				setTileText(columnIndex, rowIndex, text);
+				MenuBuilder.addText(_tilemap, text, columnIndex, rowIndex, 1);
 				// Cursor
 				_tilemap.setTile(1 + INDEXES_CHOICES[j][_configIndexes[j]], j*5 + 3, 8); //Cursor
 				
 			}
 			// Cancel
 			_tilemap.setTile(1, 16, 8); //Cursor
-			setTileText(2, 16, CANCEL);
+			MenuBuilder.addText(_tilemap, CANCEL, 2, 16, 1);
 			
 			//Current Cursor
 			_tilemap.setTile(1 + INDEXES_CHOICES[_cursorRow][_configIndexes[_cursorRow]], _cursorRow*5 + 3, 9);
 			addGraphic(_tilemap);
-		}
-		
-		private function setTileText(columnIndex:int, rowIndex:int, text:String):void 
-		{
-			for (var i:int = 0; i < text.length; i++)
-			{
-				var charCode:uint = text.charCodeAt(i);
-				if (charCode == NEW_LINE)
-				{
-					columnIndex = 1;
-					rowIndex += 2;
-				}
-				else if (columnIndex < _tilemap.columns - 1)
-				{
-					_tilemap.setTile(columnIndex, rowIndex, charCode);
-					columnIndex++;
-				}
-			}
 		}
 		
 		override public function update():void 
