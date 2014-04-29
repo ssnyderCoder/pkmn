@@ -52,6 +52,7 @@ import net.flashpunk.Entity;
 			_player = new Actor(playerX, playerY, direction, GC.MOVE_SPEED, Assets.SPRITE_RED);
 			generateMap(_rawMapData);
 			add(_player);
+			FP.timeFlag();
 		}
 		
 		public function setNewMap(map:Class, playerX:uint, playerY:uint, direction:String):void {

@@ -9,6 +9,7 @@ package entities.menu
 	{
 		private static const TILDA:uint = 126;
 		private static const PKMN_TILDA_E:uint = 92; //treats ~ as pokemon ~e
+
 		private static const NEW_LINE:uint = 10;
 		
 		public static function createBox(tilemap:Tilemap, colStart:int, rowStart:int, width:int, height:int):void {

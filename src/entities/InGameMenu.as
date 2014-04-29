@@ -12,6 +12,7 @@ package entities
 	import net.flashpunk.Mask;
 	import net.flashpunk.utils.Key;
 	import worlds.OptionsWorld;
+	import worlds.TrainerCardWorld;
 	
 	/**
 	 * ...
@@ -124,7 +125,8 @@ package entities
 			
 		}
 		private function selectName():void {
-			
+			_trainerInfo.timeInSeconds += FP.timeFlag() / (1000); //not 100% accurate, but oh well.
+			FP.world = new TrainerCardWorld(_trainerInfo, this.world);
 		}
 		private function selectSave():void {
 			
