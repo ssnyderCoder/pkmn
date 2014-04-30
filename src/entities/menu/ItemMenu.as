@@ -2,6 +2,7 @@ package entities.menu
 {
 	import constants.Assets;
 	import entities.Actor;
+	import entities.RenderLayers;
 	import item.AllItems;
 	import item.Inventory;
 	import item.InvItem;
@@ -10,6 +11,7 @@ package entities.menu
 	import net.flashpunk.graphics.Tilemap;
 	import net.flashpunk.Mask;
 	import net.flashpunk.utils.Key;
+	import worlds.MapWorld;
 	
 	/**
 	 * ...
@@ -25,6 +27,7 @@ package entities.menu
 		public function ItemMenu(x:Number=0, y:Number=0) 
 		{
 			super(x, y);
+			layer = RenderLayers.MENU1;
 			_tilemap = new Tilemap(Assets.MENU_SPRITES, 128, 88, 8, 8);
 			this.graphic = _tilemap;
 			graphic.scrollX = 0;
@@ -53,6 +56,18 @@ package entities.menu
 			else if (keyCode == Key.UP) {
 				moveCursor(-1);
 			}
+			else if (keyCode == Key.SPACE) {
+				useSelectedItem();
+			}
+		}
+		
+		private function useSelectedItem():void 
+		{
+			if (!_inventory.useItem(_firstItemSlot + _cursor, world, _user)) {
+				var mapWorld:MapWorld = (MapWorld(world));
+				mapWorld.showDialogue("You can't use that now!")
+			}
+			
 		}
 		
 		private function moveCursor(change:int):void 
