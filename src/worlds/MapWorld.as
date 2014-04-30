@@ -111,45 +111,78 @@ import net.flashpunk.Entity;
 			if (!_inputEnabled) {
 				//no input triggered
 			}
-			else if (_dialogue != null && _dialogue.world == this) //dialogue window
+			else {
+				handleInput(Input.pressed(Key.ANY) ? Input.lastKey : -100);
+			}
+			
+			
+			FP.camera.x = _player.x - 64;
+			FP.camera.y = _player.y - 64;
+			
+			super.update();
+		}	
+		
+		private function handleInput(keyCode:int):void 
+		{
+			if (_dialogue != null && _dialogue.world == this)
 			{
-				if (Input.pressed(Key.SPACE))
-				{
-					_dialogue.resume();
-				}
+				_dialogue.handleInput(keyCode);
 			}
 			else if (_menu != null && _menu.world == this)
 			{
-				if (_menu.isFinished() || Input.pressed(Key.ENTER)) {
-					this.remove(_menu);
-					_menu = null;
-				}
-				else if (Input.pressed(Key.UP) || Input.pressed(Key.DOWN) || Input.pressed(Key.SPACE))
-				{
-					_menu.handleInput(Input.lastKey);
-				}
+				_menu.handleInput(keyCode);
+			}
+			else if (keyCode == Key.ENTER) {
+				_menu = InGameMenu(create(InGameMenu, true));
+				_menu.init(_trainerInfo);
+				_menu.x = Main.WIDTH - _menu.width;
 			}
 			else if (_player.ableToMove())
-			{   if (Input.pressed(Key.SPACE))
+			{   
+				if (keyCode == Key.SPACE)
 				{
 					doPlayerInteraction();
 				}
-				else if (Input.pressed(Key.ENTER)) {
-					_menu = new InGameMenu(_trainerInfo);
-					_menu.x = Main.WIDTH - _menu.width;
-					this.add(_menu);
-				}
-				else if (Input.check((Key.UP || Key.DOWN || Key.LEFT || Key.RIGHT) && Input.lastKey))
+				if(Input.check((Key.UP || Key.DOWN || Key.LEFT || Key.RIGHT) && Input.lastKey))
 				{
 					doPlayerMovement();
 					doPlayerTouch();
 				}
 			}
 			
-			FP.camera.x = _player.x - 64;
-			FP.camera.y = _player.y - 64;
 			
-			super.update();
+		}
+		
+		private function doPlayerInteraction():void 
+		{
+			// Check for collision with an IInteractable in the direction the player is facing and handle it accordingly.
+			var interactionLocation:Point = Direction.GetDirectionValue(_player.facing);
+			var interactionObject:IInteractable = IInteractable(_player.collide("actor", _player.x + interactionLocation.x * GC.TILE_SIZE, _player.y + interactionLocation.y * GC.TILE_SIZE));
+			if (interactionObject != null)
+			{
+				interactionObject.interact();
+			}
+		}
+		
+		private function doPlayerMovement():void 
+		{
+			switch (Input.lastKey)
+			{
+				case Key.UP:
+					_player.applyInput(Direction.UP);
+					break;
+				case Key.DOWN:
+					_player.applyInput(Direction.DOWN);
+					break;
+				case Key.LEFT:
+					_player.applyInput(Direction.LEFT);
+					break;
+				case Key.RIGHT:
+					_player.applyInput(Direction.RIGHT);
+					break;
+				default:
+					break;
+			}
 		}
 		
 		private function doPlayerTouch():void 
@@ -210,39 +243,6 @@ import net.flashpunk.Entity;
 				add(transition);
 			}
 		}
-		
-		private function doPlayerInteraction():void 
-		{
-			// Check for collision with an IInteractable in the direction the player is facing and handle it accordingly.
-			var interactionLocation:Point = Direction.GetDirectionValue(_player.facing);
-			var interactionObject:IInteractable = IInteractable(_player.collide("actor", _player.x + interactionLocation.x * GC.TILE_SIZE, _player.y + interactionLocation.y * GC.TILE_SIZE));
-			if (interactionObject != null)
-			{
-				interactionObject.interact();
-			}
-		}
-		
-		private function doPlayerMovement():void 
-		{
-			switch (Input.lastKey)
-			{
-				case Key.UP:
-					_player.applyInput(Direction.UP);
-					break;
-				case Key.DOWN:
-					_player.applyInput(Direction.DOWN);
-					break;
-				case Key.LEFT:
-					_player.applyInput(Direction.LEFT);
-					break;
-				case Key.RIGHT:
-					_player.applyInput(Direction.RIGHT);
-					break;
-				default:
-					break;
-			}
-		}
-		
 		
 	}
 

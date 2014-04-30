@@ -9,6 +9,7 @@ import constants.GC;
 import entities.menu.MenuBuilder;
 import net.flashpunk.Entity;
 import net.flashpunk.graphics.Tilemap;
+import net.flashpunk.utils.Key;
 
 public class Dialogue extends Entity
 {
@@ -45,6 +46,13 @@ public class Dialogue extends Entity
 		layer = RenderLayers.DIALOGUE;
 		
 		super(0, 0, _tilemap);
+	}
+	
+	public function handleInput(key:int):void {
+		if (key == Key.SPACE)
+		{
+			resume();
+		}
 	}
 
 	public function resume():void

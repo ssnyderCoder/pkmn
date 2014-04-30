@@ -35,9 +35,13 @@ package entities
 		private var _finished:Boolean = false;
 		private var _trainerInfo:TrainerInfo;
 		
-		public function InGameMenu(info:TrainerInfo, x:Number=0, y:Number=0) 
+		public function InGameMenu(x:Number=0, y:Number=0) 
 		{
 			super(x, y);
+			layer = RenderLayers.MENU1;
+		}
+		
+		public function init(info:TrainerInfo):void {
 			_trainerInfo = info;
 			_numSelections = getNumberSelections(info);
 			_tilemap = new Tilemap(Assets.MENU_SPRITES, 80, (2 + _numSelections*2) * 8, 8, 8);
@@ -47,8 +51,6 @@ package entities
 			this.setHitbox(_tilemap.width, _tilemap.height);
 			setupMenu(info);
 			setupSelections(info);
-			
-			layer = RenderLayers.MENU1;
 		}
 		
 		private function setupSelections(info:TrainerInfo):void 
@@ -108,6 +110,9 @@ package entities
 				var select:Function = _selectionFunctions[_cursorPosition];
 				select();
 			}
+			else if (keyCode == Key.ENTER) {
+				world.recycle(this);	
+			}
 			_tilemap.setTile(1, (_cursorPosition * 2) + 2, 9);
 		}
 		
@@ -125,7 +130,7 @@ package entities
 			
 		}
 		private function selectName():void {
-			_trainerInfo.timeInSeconds += FP.timeFlag() / (1000); //not 100% accurate, but oh well.
+			_trainerInfo.timeInSeconds += FP.timeFlag() / (1000);
 			FP.world = new TrainerCardWorld(_trainerInfo, this.world);
 		}
 		private function selectSave():void {
@@ -135,7 +140,7 @@ package entities
 			FP.world = new OptionsWorld(_trainerInfo.gameOptions, this.world)
 		}
 		private function selectExit():void {
-			_finished = true;
+			world.recycle(this);
 		}
 		
 	}
