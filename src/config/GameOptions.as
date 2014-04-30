@@ -1,5 +1,6 @@
 package config 
 {
+	import net.flashpunk.utils.Data;
 	/**
 	 * ...
 	 * @author Sean Snyder
@@ -18,6 +19,20 @@ package config
 		public static const STYLE_SET:int = 0;
 		public static const STYLE_SHIFT:int = 1;
 		public var battleStyle:int = STYLE_SHIFT;
+		
+		public function save():void 
+		{
+			Data.writeInt("textSpeed", textSpeed);
+			Data.writeInt("battleScene", battleScene);
+			Data.writeInt("battleStyle", battleStyle);
+		}
+		
+		public function load():void 
+		{
+			textSpeed = Data.readInt("textSpeed");
+			battleScene = Data.readInt("battleScene");
+			battleStyle = Data.readInt("battleStyle");
+		}
 	}
 
 }

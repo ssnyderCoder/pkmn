@@ -30,6 +30,10 @@ package entities
 		private var _behavior:IBehavior;
 		
 		public function get facing():String { return _facing; }
+		public function get tileX():uint { return _location.x;}
+		public function get tileY():uint { return _location.y;}
+		public function set tileX(num:uint):void { _location.x = num;}
+		public function set tileY(num:uint):void { _location.y = num;}
 		
 		public function Actor(tileX:uint = 0, tileY:uint = 0, facing:String = "down", speed:uint = 0, sprite:uint = 0) 
 		{

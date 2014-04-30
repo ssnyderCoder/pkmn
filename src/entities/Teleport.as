@@ -41,7 +41,7 @@ package entities
 			{
 				var mapClass:Class = Maps.getMapData(_mapName);
 				if(mapClass){
-					mapWorld.setNewMap(mapClass, _mapX, _mapY, _warpDirection);
+					mapWorld.setNewMap(_mapName, _mapX, _mapY, _warpDirection);
 				}
 			}
 		}

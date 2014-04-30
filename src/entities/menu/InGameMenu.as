@@ -11,6 +11,7 @@ package entities.menu
 	import net.flashpunk.graphics.Stamp;
 	import net.flashpunk.graphics.Tilemap;
 	import net.flashpunk.Mask;
+	import net.flashpunk.utils.Data;
 	import net.flashpunk.utils.Key;
 	import worlds.MapWorld;
 	import worlds.OptionsWorld;
@@ -137,7 +138,8 @@ package entities.menu
 		}
 		private function selectSave():void {
 			var mapWorld:MapWorld = (MapWorld(world));
-			mapWorld.showDialogue("Saving........ doesn't work.")
+			mapWorld.saveGame(); 
+			mapWorld.showDialogue("Saving........ Game Saved!")
 		}
 		private function selectOptions():void {
 			FP.world = new OptionsWorld(_trainerInfo.gameOptions, this.world)

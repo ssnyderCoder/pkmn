@@ -4,6 +4,7 @@ package worlds
 	import constants.Assets;
 	import constants.Direction;
 	import constants.GC;
+	import constants.Maps;
 	import entities.Actor;
 	import entities.BehaviorFactory;
 	import entities.DialogueNPC;
@@ -46,9 +47,20 @@ import net.flashpunk.Entity;
 		
 		public function get player():Actor { return _player; }
 		
-		public function MapWorld(map:Class, playerX:uint, playerY:uint, direction:String) 
+		public function MapWorld() {
+			_player = new Actor();
+			if (_trainerInfo.load("pkmn", _player)) {
+				setup(_trainerInfo.currentMap, _player.tileX, _player.tileY, _player.facing);
+			}
+			else {
+				setup("oregonHouse1", 2, 2, Direction.DOWN);
+			}
+		}
+		
+		public function setup(mapName:String, playerX:uint, playerY:uint, direction:String) :void
 		{
-			_rawMapData = map;
+			_trainerInfo.currentMap = mapName;
+			_rawMapData = Maps.getMapData(mapName);
 			_player = new Actor(playerX, playerY, direction, GC.MOVE_SPEED, Assets.SPRITE_RED);
 			generateMap(_rawMapData);
 			add(_player);
@@ -60,8 +72,9 @@ import net.flashpunk.Entity;
 			return _mapEntity;
 		}
 		
-		public function setNewMap(map:Class, playerX:uint, playerY:uint, direction:String):void {
-			_rawMapData = map;
+		public function setNewMap(mapName:String, playerX:uint, playerY:uint, direction:String):void {
+			_trainerInfo.currentMap = mapName;
+			_rawMapData = Maps.getMapData(mapName);
 			_tempPlayer = new Actor(playerX, playerY, direction, GC.MOVE_SPEED, Assets.SPRITE_RED);
 			beginTransition();
 		}
@@ -170,6 +183,18 @@ import net.flashpunk.Entity;
 			
 			super.update();
 		}	
+		
+		public function saveGame():void 
+		{
+			_trainerInfo.timeInSeconds += FP.timeFlag() / (1000);
+			_trainerInfo.save("pkmn", _player);
+		}
+		
+		public function loadGame():void {
+			if (_trainerInfo.load("pkmn", _player)) {
+				setNewMap(_trainerInfo.currentMap, _player.tileX, _player.tileY, _player.facing);
+			}
+		}
 		
 		private function handleInput(keyCode:int):void 
 		{
