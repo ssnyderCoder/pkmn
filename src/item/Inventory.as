@@ -14,7 +14,15 @@ package item
 		public function Inventory(maxItems:int=16) 
 		{
 			_maxItems = maxItems;
+			addInvItem(new InvItem(AllItems.POKEBALL.id, 75));
+			addInvItem(new InvItem(AllItems.MASTERBALL.id, 1));
+			addInvItem(new InvItem(AllItems.HYPER_POTION.id, 4));
+			addInvItem(new InvItem(AllItems.POTION.id, 99));
+			addInvItem(new InvItem(AllItems.SUPER_POTION.id, 18));
+			addInvItem(new InvItem(AllItems.BICYCLE.id, 1));
 		}
+		
+		public function get numItems():int { return items.length; }
 		
 		public function getInvItem(slot:int):InvItem {
 			return items[slot];
@@ -25,7 +33,7 @@ package item
 		}
 		
 		public function addInvItem(invItem:InvItem):Boolean {
-			var maxQuantity:int = AllItems.getItem(it.id).maxQuantity;
+			var maxQuantity:int = AllItems.getItem(invItem.id).maxQuantity;
 			
 			//make sure quantity not above max
 			invItem.quantity = invItem.quantity > maxQuantity ? maxQuantity : invItem.quantity

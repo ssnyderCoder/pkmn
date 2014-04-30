@@ -16,7 +16,7 @@ package
 	{
 		public static const WIDTH:int = 160;
 		public static const HEIGHT:int = 144;
-		static public const VERSION:String = "0.061";
+		static public const VERSION:String = "0.06";
 		public function Main():void
 		{
 			super(160, 144, 60, true);
