@@ -19,6 +19,7 @@ package entities
 		
 		private var _map:Tilemap;
 		private var _grid:Grid;
+		private var _terrain:String;
 		private const behaviorFactory:BehaviorFactory = new BehaviorFactory();
 		public function GameMap(x:Number=0, y:Number=0) 
 		{
@@ -29,6 +30,7 @@ package entities
 			var xmlData:XML = FP.getXML(data);
 			var mapWidth:uint = uint(xmlData.@width);
 			var mapHeight:uint = uint(xmlData.@height);
+			_terrain = xmlData.@terrain;
 			var tileString:String = xmlData.Tiles;
 			var gridString:String = xmlData.Collision;
 			var property:XML;
@@ -66,6 +68,11 @@ package entities
 				transition.setWarpPoint(property.@map, uint(property.@xTile), uint(property.@yTile), property.@face);
 				theWorld.add(transition);
 			}
+		}
+		
+		public function get terrain():String 
+		{
+			return _terrain;
 		}
 		
 	}

@@ -1,6 +1,7 @@
 package item 
 {
 	import constants.Assets;
+	import constants.Terrain;
 	import entities.Actor;
 	import net.flashpunk.World;
 	import worlds.MapWorld;
@@ -20,7 +21,10 @@ package item
 		{
 			var mapWorld:MapWorld = (MapWorld(world));
 			if (mapWorld != null && user != null) {
-				if(user.sprite == Assets.SPRITE_REDBIKE){
+				if (mapWorld.getMap().terrain != Terrain.OUTSIDE) {
+					return false;
+				}
+				else if(user.sprite == Assets.SPRITE_REDBIKE){
 					user.sprite = Assets.SPRITE_RED;
 					user.setSpeed(20);
 					mapWorld.showDialogue("Got off the Bike!", mapWorld.cancelMenus)
