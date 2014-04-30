@@ -25,7 +25,7 @@ package
 		{
 			FP.screen.color = 0x000000;
 			FP.screen.scale = 4;
-			FP.world = new MapWorld(Maps.TEST, 2, 2, Direction.DOWN);
+			FP.world = new MapWorld(Maps.OREGON_HOUSE_1, 2, 2, Direction.DOWN);
 			super.init();
 		}
 	}

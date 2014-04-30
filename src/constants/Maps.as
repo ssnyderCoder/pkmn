@@ -7,17 +7,17 @@ package constants
 	 */
 	public class Maps 
 	{
-		[Embed(source = "../../maps/test.oel", mimeType = "application/octet-stream")] public static const TEST:Class;
-		[Embed(source = "../../maps/test2.oel", mimeType = "application/octet-stream")] public static const TEST2:Class;
-		[Embed(source = "../../maps/test3.oel", mimeType = "application/octet-stream")] public static const TEST3:Class;
-		[Embed(source = "../../maps/test4.oel", mimeType = "application/octet-stream")] public static const TEST4:Class;
+		[Embed(source = "../../maps/oregonHouse1.oel", mimeType = "application/octet-stream")] public static const OREGON_HOUSE_1:Class;
+		[Embed(source = "../../maps/oregonPath.oel", mimeType = "application/octet-stream")] public static const OREGON_PATH:Class;
+		[Embed(source = "../../maps/oregonTown.oel", mimeType = "application/octet-stream")] public static const OREGON_TOWN:Class;
+		[Embed(source = "../../maps/oregonCave.oel", mimeType = "application/octet-stream")] public static const OREGON_CAVE:Class;
 		
 		private static const maps:Dictionary = new Dictionary();
 		{
-			maps["test"] = TEST;
-			maps["test2"] = TEST2;
-			maps["test3"] = TEST3;
-			maps["test4"] = TEST4;
+			maps["oregonHouse1"] = OREGON_HOUSE_1;
+			maps["oregonPath"] = OREGON_PATH;
+			maps["oregonTown"] = OREGON_TOWN;
+			maps["oregonCave"] = OREGON_CAVE;
 		}
 		
 		public static function getMapData(name:String):Class {
