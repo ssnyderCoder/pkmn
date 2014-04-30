@@ -1,6 +1,7 @@
 package config 
 {
 	import entities.Actor;
+	import item.Inventory;
 	import net.flashpunk.utils.Data;
 	/**
 	 * ...
@@ -14,16 +15,22 @@ package config
 		public var numBadges:int = 0;
 		public var hasPokemon:Boolean = false;
 		public var hasPokedex:Boolean = false;
-		public var hasItems:Boolean = false;
+		public var hasItems:Boolean = true;
 		public var canSaveGame:Boolean = true;
 		public var hasTrainerCard:Boolean = true;
 		public var currentMap:String = "oregonHouse1";
 		private var _gameOptions:GameOptions = new GameOptions();
+		private var _inventory:Inventory = new Inventory();
 		private var noSaveFile:Boolean = false; //used only for checking that a file was saved
 		
 		public function get gameOptions():GameOptions 
 		{
 			return _gameOptions;
+		}
+		
+		public function get inventory():Inventory 
+		{
+			return _inventory;
 		}
 		
 		public function save(fileName:String, player:Actor):void
@@ -40,6 +47,8 @@ package config
 			Data.writeBool("hasTrainerCard", hasTrainerCard);
 			
 			_gameOptions.save();
+			
+			_inventory.save();
 			
 			Data.writeInt("tileX", player.tileX);
 			Data.writeInt("tileY", player.tileY);
@@ -67,6 +76,7 @@ package config
 			hasTrainerCard = Data.readBool("hasTrainerCard");
 			
 			_gameOptions.load();
+			_inventory.load();
 			
 			player.tileX = Data.readInt("tileX");
 			player.tileY = Data.readInt("tileY");

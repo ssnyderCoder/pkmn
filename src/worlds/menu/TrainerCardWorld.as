@@ -1,4 +1,4 @@
-package worlds 
+package worlds.menu 
 {
 	import config.TrainerInfo;
 	import constants.Assets;

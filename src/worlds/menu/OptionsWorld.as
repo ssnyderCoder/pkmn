@@ -1,4 +1,4 @@
-package worlds 
+package worlds.menu 
 {
 	import config.GameOptions;
 	import constants.Assets;

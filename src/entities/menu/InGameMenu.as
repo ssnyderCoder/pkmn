@@ -2,6 +2,7 @@ package entities.menu
 {
 	import config.TrainerInfo;
 	import constants.Assets;
+	import entities.Actor;
 	import entities.menu.MenuBuilder;
 	import entities.RenderLayers;
 	import net.flashpunk.Entity;
@@ -14,8 +15,8 @@ package entities.menu
 	import net.flashpunk.utils.Data;
 	import net.flashpunk.utils.Key;
 	import worlds.MapWorld;
-	import worlds.OptionsWorld;
-	import worlds.TrainerCardWorld;
+	import worlds.menu.OptionsWorld;
+	import worlds.menu.TrainerCardWorld;
 	
 	/**
 	 * ...
@@ -37,6 +38,8 @@ package entities.menu
 		private var _selectionFunctions:Array = new Array();
 		private var _finished:Boolean = false;
 		private var _trainerInfo:TrainerInfo;
+		
+		private var _itemMenu:ItemMenu = null;
 		
 		public function InGameMenu(x:Number=0, y:Number=0) 
 		{
@@ -103,7 +106,14 @@ package entities.menu
 		}
 		
 		public function handleInput(keyCode:int):void {
-			if (keyCode == -100) return;
+			if (keyCode == -100) {
+				return;
+			}
+			
+			if (_itemMenu != null && _itemMenu.world == world) {
+				_itemMenu.handleInput(keyCode);
+				return;
+			}
 			
 			_tilemap.setTile(1, (_cursorPosition * 2) + 2, 0);
 			if (keyCode == Key.UP) {
@@ -130,7 +140,12 @@ package entities.menu
 			
 		}
 		private function selectItems():void {
-			
+			var mapWorld:MapWorld = (MapWorld(world));
+			var player:Actor = mapWorld.player;
+			_itemMenu = ItemMenu(world.create(ItemMenu, true));
+			_itemMenu.init(_trainerInfo.inventory, player);
+			_itemMenu.x = Main.WIDTH - _itemMenu.width;
+			_itemMenu.y = 16;
 		}
 		private function selectName():void {
 			_trainerInfo.timeInSeconds += FP.timeFlag() / (1000);
