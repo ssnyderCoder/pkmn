@@ -1,12 +1,13 @@
 /**
  * Created by zachwlewis on 2/22/14.
  */
-package entities
+package entities.menu
 {
 import config.GameOptions;
 import constants.Assets;
 import constants.GC;
 import entities.menu.MenuBuilder;
+import entities.RenderLayers;
 import net.flashpunk.Entity;
 import net.flashpunk.graphics.Tilemap;
 import net.flashpunk.utils.Key;

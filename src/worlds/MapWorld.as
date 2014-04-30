@@ -6,12 +6,12 @@ package worlds
 	import constants.GC;
 	import entities.Actor;
 	import entities.BehaviorFactory;
-	import entities.Dialogue;
 	import entities.DialogueNPC;
 	import entities.IInteractable;
-	import entities.InGameMenu;
 	import entities.Interaction;
 	import entities.ITouchable;
+	import entities.menu.Dialogue;
+	import entities.menu.InGameMenu;
 	import entities.RenderLayers;
 	import entities.Teleport;
 	import entities.TransitionScreen;
@@ -54,11 +54,59 @@ import net.flashpunk.Entity;
 			add(_player);
 			FP.timeFlag();
 		}
+		////////////////////////////////////////MAP RELATED///////////////////////////
+		public function getMap():Entity
+		{
+			return _mapEntity;
+		}
 		
 		public function setNewMap(map:Class, playerX:uint, playerY:uint, direction:String):void {
 			_rawMapData = map;
 			_tempPlayer = new Actor(playerX, playerY, direction, GC.MOVE_SPEED, Assets.SPRITE_RED);
 			beginTransition();
+		}
+		
+		private function generateMap(data:Class):void
+		{
+			var xmlData:XML = FP.getXML(data);
+			var mapWidth:uint = uint(xmlData.@width);
+			var mapHeight:uint = uint(xmlData.@height);
+			var tileString:String = xmlData.Tiles;
+			var gridString:String = xmlData.Collision;
+			var property:XML;
+			
+			// Populate Map
+			_map = new Tilemap(Assets.MAP_TILES, mapWidth, mapHeight, GC.TILE_SIZE, GC.TILE_SIZE);
+			_map.loadFromString(tileString);
+			
+			// Populate Grid
+			_grid = new Grid(mapWidth, mapHeight, GC.TILE_SIZE, GC.TILE_SIZE);
+			trace(gridString);
+			_grid.loadFromString(gridString,"");
+			
+			_mapEntity = add(new Entity(0, 0, _map, _grid));
+			_mapEntity.type = "maps";
+			_mapEntity.layer = RenderLayers.TILES;
+			
+			// Add actors.
+			for each (property in xmlData.Entities.Interaction)
+			{
+				add(new Interaction(property.@dialogue, uint(property.@x), uint(property.@y)));
+			}
+			
+			for each (property in xmlData.Entities.DialogueNPC)
+			{
+				var npc:DialogueNPC = new DialogueNPC(property.@dialogue, uint(property.@x / GC.TILE_SIZE), uint(property.@y / GC.TILE_SIZE), property.@direction, GC.MOVE_SPEED, Assets.getSpriteID(property.@spriteName));
+				npc.assignBehavior(behaviorFactory.getBehavior(property.@behavior));
+				add(npc);
+			}
+			
+			for each (property in xmlData.Entities.Transition)
+			{
+				var transition:Teleport = new Teleport(uint(property.@x), uint(property.@y));
+				transition.setWarpPoint(property.@map, uint(property.@xTile), uint(property.@yTile), property.@face);
+				add(transition);
+			}
 		}
 		
 		private function beginTransition():void 
@@ -95,6 +143,7 @@ import net.flashpunk.Entity;
 			var transitionScreen:Entity = (Entity)(this.getInstance("transition"));
 			this.remove(transitionScreen);
 		}
+		///////////////////////////////////////////////////////////////////////////////
 		
 		/**
 		 * Display dialogue to the text box.
@@ -193,54 +242,6 @@ import net.flashpunk.Entity;
 			if (interactionObject != null)
 			{
 				interactionObject.touch();
-			}
-		}
-		
-		public function getMap():Entity
-		{
-			return _mapEntity;
-		}
-		
-		private function generateMap(data:Class):void
-		{
-			var xmlData:XML = FP.getXML(data);
-			var mapWidth:uint = uint(xmlData.@width);
-			var mapHeight:uint = uint(xmlData.@height);
-			var tileString:String = xmlData.Tiles;
-			var gridString:String = xmlData.Collision;
-			var property:XML;
-			
-			// Populate Map
-			_map = new Tilemap(Assets.MAP_TILES, mapWidth, mapHeight, GC.TILE_SIZE, GC.TILE_SIZE);
-			_map.loadFromString(tileString);
-			
-			// Populate Grid
-			_grid = new Grid(mapWidth, mapHeight, GC.TILE_SIZE, GC.TILE_SIZE);
-			trace(gridString);
-			_grid.loadFromString(gridString,"");
-			
-			_mapEntity = add(new Entity(0, 0, _map, _grid));
-			_mapEntity.type = "maps";
-			_mapEntity.layer = RenderLayers.TILES;
-			
-			// Add actors.
-			for each (property in xmlData.Entities.Interaction)
-			{
-				add(new Interaction(property.@dialogue, uint(property.@x), uint(property.@y)));
-			}
-			
-			for each (property in xmlData.Entities.DialogueNPC)
-			{
-				var npc:DialogueNPC = new DialogueNPC(property.@dialogue, uint(property.@x / GC.TILE_SIZE), uint(property.@y / GC.TILE_SIZE), property.@direction, GC.MOVE_SPEED, Assets.getSpriteID(property.@spriteName));
-				npc.assignBehavior(behaviorFactory.getBehavior(property.@behavior));
-				add(npc);
-			}
-			
-			for each (property in xmlData.Entities.Transition)
-			{
-				var transition:Teleport = new Teleport(uint(property.@x), uint(property.@y));
-				transition.setWarpPoint(property.@map, uint(property.@xTile), uint(property.@yTile), property.@face);
-				add(transition);
 			}
 		}
 		

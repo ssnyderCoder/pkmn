@@ -13,7 +13,7 @@ package config
 		public var hasPokemon:Boolean = false;
 		public var hasPokedex:Boolean = false;
 		public var hasItems:Boolean = false;
-		public var canSaveGame:Boolean = false;
+		public var canSaveGame:Boolean = true;
 		public var hasTrainerCard:Boolean = true;
 		private var _gameOptions:GameOptions = new GameOptions();
 		

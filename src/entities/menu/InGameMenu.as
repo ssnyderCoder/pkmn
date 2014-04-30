@@ -1,8 +1,9 @@
-package entities 
+package entities.menu 
 {
 	import config.TrainerInfo;
 	import constants.Assets;
 	import entities.menu.MenuBuilder;
+	import entities.RenderLayers;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.Graphic;
@@ -11,6 +12,7 @@ package entities
 	import net.flashpunk.graphics.Tilemap;
 	import net.flashpunk.Mask;
 	import net.flashpunk.utils.Key;
+	import worlds.MapWorld;
 	import worlds.OptionsWorld;
 	import worlds.TrainerCardWorld;
 	
@@ -29,8 +31,8 @@ package entities
 		                                 "EXIT");
 		
 		private var _tilemap:Tilemap;
-		private var _cursorPosition:uint = 0; //0 to numSelections - 1
-		private var _numSelections:uint = 0;
+		private var _cursorPosition:uint; //0 to numSelections - 1
+		private var _numSelections:uint;
 		private var _selectionFunctions:Array = new Array();
 		private var _finished:Boolean = false;
 		private var _trainerInfo:TrainerInfo;
@@ -43,6 +45,7 @@ package entities
 		
 		public function init(info:TrainerInfo):void {
 			_trainerInfo = info;
+			_cursorPosition = 0;
 			_numSelections = getNumberSelections(info);
 			_tilemap = new Tilemap(Assets.MENU_SPRITES, 80, (2 + _numSelections*2) * 8, 8, 8);
 			this.graphic = _tilemap;
@@ -99,6 +102,8 @@ package entities
 		}
 		
 		public function handleInput(keyCode:int):void {
+			if (keyCode == -100) return;
+			
 			_tilemap.setTile(1, (_cursorPosition * 2) + 2, 0);
 			if (keyCode == Key.UP) {
 				_cursorPosition = _cursorPosition == 0 ? _numSelections - 1 : _cursorPosition - 1;
@@ -116,9 +121,6 @@ package entities
 			_tilemap.setTile(1, (_cursorPosition * 2) + 2, 9);
 		}
 		
-		public function isFinished():Boolean {
-			return _finished;
-		}
 		
 		private function selectPokedex():void {
 			
@@ -134,7 +136,8 @@ package entities
 			FP.world = new TrainerCardWorld(_trainerInfo, this.world);
 		}
 		private function selectSave():void {
-			
+			var mapWorld:MapWorld = (MapWorld(world));
+			mapWorld.showDialogue("Saving........ doesn't work.")
 		}
 		private function selectOptions():void {
 			FP.world = new OptionsWorld(_trainerInfo.gameOptions, this.world)
