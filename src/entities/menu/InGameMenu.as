@@ -132,6 +132,14 @@ package entities.menu
 			_tilemap.setTile(1, (_cursorPosition * 2) + 2, 9);
 		}
 		
+		public function cancel():void 
+		{
+			if (_itemMenu != null && _itemMenu.world == world) {
+				world.recycle(_itemMenu);
+			}
+			world.recycle(this);
+		}
+		
 		
 		private function selectPokedex():void {
 			

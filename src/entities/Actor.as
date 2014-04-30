@@ -149,6 +149,24 @@ package entities
 				_behavior.restart(this);
 			}
 		}
+		
+		public function set sprite(sprite:int):void {
+			_spriteIndex = 6 * sprite;
+			_sprite.add(Direction.UP, [_spriteIndex + 3, _spriteIndex + 2], 2 / _speed, false);
+			_sprite.add(Direction.DOWN, [_spriteIndex + 1, _spriteIndex + 0], 2 / _speed, false);
+			_sprite.add(Direction.LEFT, [_spriteIndex + 5, _spriteIndex + 4], 2 / _speed, false);
+			_sprite.add(Direction.RIGHT, [_spriteIndex + 5, _spriteIndex + 4], 2 / _speed, false);
+			setFacing(facing);
+		}
+		
+		public function get sprite():int {
+			return _spriteIndex / 6;
+		}
+		
+		
+		public function setSpeed(frames:int):void {
+			_speed = frames;
+		}
 	}
 
 }

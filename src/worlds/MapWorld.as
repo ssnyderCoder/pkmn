@@ -182,7 +182,14 @@ import net.flashpunk.Entity;
 			FP.camera.y = _player.y - 64;
 			
 			super.update();
-		}	
+		}
+		
+		public function cancelMenus():void {
+			if (_menu != null && _menu.world == this)
+			{
+				_menu.cancel();
+			}
+		}
 		
 		public function saveGame():void 
 		{

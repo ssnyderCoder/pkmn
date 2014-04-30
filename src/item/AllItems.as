@@ -7,7 +7,7 @@ package item
 	 */
 	public class AllItems 
 	{
-		public static const BICYCLE:Item = new Item(0, "BICYCLE").setMaxQuantity(1);
+		public static const BICYCLE:Item = new ItemBike(0, "BICYCLE").setMaxQuantity(1);
 		public static const POTION:Item = new Item(1, "POTION");
 		public static const SUPER_POTION:Item = new Item(2, "SUPER POTION");
 		public static const HYPER_POTION:Item = new Item(3, "HYPER POTION");
