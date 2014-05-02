@@ -120,7 +120,7 @@ package entities.menu
 			{
 				var invItem:InvItem = _inventory.getInvItem(_firstItemSlot + i);
 				if (invItem != null) {
-					MenuBuilder.addText(_tilemap, AllItems.getItem(invItem.id).name, 2, 2 + 2 * i, 0);
+					MenuBuilder.addText(_tilemap, AllItems.getItemFromID(invItem.id).name, 2, 2 + 2 * i, 0);
 					var quant:String = "" + invItem.quantity;
 					if (quant.length == 1) quant = "0" + quant;
 					MenuBuilder.addText(_tilemap, "x" + quant, 10, 3 + 2*i, 0);

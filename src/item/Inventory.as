@@ -14,12 +14,6 @@ package item
 		public function Inventory(maxItems:int=16) 
 		{
 			_maxItems = maxItems;
-			addInvItem(new InvItem(AllItems.POKEBALL.id, 75));
-			addInvItem(new InvItem(AllItems.MASTERBALL.id, 1));
-			addInvItem(new InvItem(AllItems.HYPER_POTION.id, 4));
-			addInvItem(new InvItem(AllItems.POTION.id, 99));
-			addInvItem(new InvItem(AllItems.SUPER_POTION.id, 18));
-			addInvItem(new InvItem(AllItems.BICYCLE.id, 1));
 		}
 		
 		public function get numItems():int { return items.length; }
@@ -33,7 +27,7 @@ package item
 		}
 		
 		public function addInvItem(invItem:InvItem):Boolean {
-			var maxQuantity:int = AllItems.getItem(invItem.id).maxQuantity;
+			var maxQuantity:int = AllItems.getItemFromID(invItem.id).maxQuantity;
 			
 			//make sure quantity not above max
 			invItem.quantity = invItem.quantity > maxQuantity ? maxQuantity : invItem.quantity
@@ -62,7 +56,7 @@ package item
 		public function useItem(slot:int, world:World=null, user:Actor=null):Boolean {
 			var invItem:InvItem = items[slot];
 			if (invItem == null) return false;
-			return AllItems.getItem(invItem.id).activate(invItem, world, user);
+			return AllItems.getItemFromID(invItem.id).activate(invItem, world, user);
 		}
 		
 		public function save():void 

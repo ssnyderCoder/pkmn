@@ -23,6 +23,9 @@ package constants
 		public static const SPRITE_GIRL1:uint = 6;
 		public static const SPRITE_GIRL2:uint = 7;
 		
+		public static const SPRITE_INDEX_FOSSIL:uint = 142;
+		public static const SPRITE_INDEX_ITEMBALL:uint = 143;
+		
 		private static const spriteIDs:Dictionary = new Dictionary();
 		{
 			spriteIDs["red"] = SPRITE_RED;

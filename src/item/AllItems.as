@@ -13,19 +13,31 @@ package item
 		public static const HYPER_POTION:Item = new Item(3, "HYPER POTION");
 		public static const POKEBALL:Item = new Item(4, "POKE BALL");
 		public static const MASTERBALL:Item = new Item(5, "MASTER BALL");
+		public static const ANTIDOTE:Item = new Item(6, "ANTIDOTE");
 		
-		private static const items:Dictionary = new Dictionary();
+		private static const ITEMS_ID:Dictionary = new Dictionary();
+		private static const ITEMS_NAME:Dictionary = new Dictionary();
 		{
-			items[BICYCLE.id] = BICYCLE;
-			items[POTION.id] = POTION;
-			items[SUPER_POTION.id] = SUPER_POTION;
-			items[HYPER_POTION.id] = HYPER_POTION;
-			items[POKEBALL.id] = POKEBALL;
-			items[MASTERBALL.id] = MASTERBALL;
+			addItem(BICYCLE);
+			addItem(POTION);
+			addItem(SUPER_POTION);
+			addItem(HYPER_POTION);
+			addItem(POKEBALL);
+			addItem(MASTERBALL);
+			addItem(ANTIDOTE);
 		}
 		
-		public static function getItem(id:int):Item {
-			return items[id];
+		private static function addItem(itemToAdd:Item):void {
+			ITEMS_ID[itemToAdd.id] = itemToAdd;
+			ITEMS_NAME[itemToAdd.name] = itemToAdd;
+		}
+		
+		public static function getItemFromID(id:int):Item {
+			return ITEMS_ID[id];
+		}
+		
+		public static function getItemFromName(name:String):Item {
+			return ITEMS_NAME[name];
 		}
 		
 	}

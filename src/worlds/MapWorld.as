@@ -45,6 +45,11 @@ import net.flashpunk.Entity;
 		
 		public function get player():Actor { return _player; }
 		
+		public function get trainerInfo():TrainerInfo 
+		{
+			return _trainerInfo;
+		}
+		
 		public function MapWorld() {
 			_player = new Actor();
 			if (_trainerInfo.load("pkmn", _player)) {

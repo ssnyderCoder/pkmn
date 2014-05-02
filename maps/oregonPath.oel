@@ -40,5 +40,6 @@
     <Interaction id="1" x="128" y="112" dialogue="Be careful! It's dangerous out there!" />
     <DialogueNPC id="2" x="160" y="176" dialogue="Sorry, but I can't allow you to leave.  It's for your own good." spriteName="scientist" direction="up" behavior="watch" />
     <DialogueNPC id="3" x="192" y="96" dialogue="Don't worry. We are safe here...." spriteName="man1" direction="down" behavior="wander" />
+    <Item id="4" x="96" y="176" itemName="BICYCLE" quantity="1" />
   </Entities>
 </level>

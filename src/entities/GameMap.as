@@ -2,6 +2,9 @@ package entities
 {
 	import constants.Assets;
 	import constants.GC;
+	import item.AllItems;
+	import item.InvItem;
+	import item.Item;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.Graphic;
@@ -67,6 +70,13 @@ package entities
 				var transition:Teleport = new Teleport(uint(property.@x), uint(property.@y));
 				transition.setWarpPoint(property.@map, uint(property.@xTile), uint(property.@yTile), property.@face);
 				theWorld.add(transition);
+			}
+			
+			for each (property in xmlData.Entities.Item)
+			{
+				var itemball:ItemBall = new ItemBall(uint(property.@x), uint(property.@y));
+				itemball.init(new InvItem(AllItems.getItemFromName(property.@itemName).id, property.@quantity))
+				theWorld.add(itemball);
 			}
 		}
 		

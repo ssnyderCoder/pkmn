@@ -69,5 +69,6 @@
     <DialogueNPC id="6" x="192" y="224" dialogue="Jealous?" spriteName="redbike" direction="down" behavior="wander" />
     <DialogueNPC id="7" x="208" y="336" dialogue="Ugh, just great... It looks like ONE of us is going to have to change..." spriteName="red" direction="down" behavior="wander" />
     <Interaction id="8" x="240" y="336" dialogue="The door is locked." />
+    <Item id="9" x="336" y="144" itemName="ANTIDOTE" quantity="2" />
   </Entities>
 </level>
