@@ -66,9 +66,10 @@
     <Transition id="3" x="224" y="176" map="oregonHouse1" xTile="5" yTile="7" face="up" />
     <DialogueNPC id="4" x="304" y="176" dialogue="I love the mountains! I wish I could be a hiker!" spriteName="girl2" direction="down" behavior="wander" />
     <DialogueNPC id="5" x="320" y="320" dialogue="I hate the mountains! I miss the ocean..." spriteName="swimmer" direction="down" behavior="wander" />
-    <DialogueNPC id="6" x="192" y="224" dialogue="Jealous?" spriteName="redbike" direction="down" behavior="wander" />
+    <DialogueNPC id="6" x="240" y="240" dialogue="Jealous?" spriteName="redbike" direction="down" behavior="wander" />
     <DialogueNPC id="7" x="208" y="336" dialogue="Ugh, just great... It looks like ONE of us is going to have to change..." spriteName="red" direction="down" behavior="wander" />
     <Interaction id="8" x="240" y="336" dialogue="The door is locked." />
     <Item id="9" x="336" y="144" itemName="ANTIDOTE" quantity="2" />
+    <ScriptedNPC id="10" x="128" y="160" spriteName="lad" direction="down" idleScript="walk^down*3 ~ walk^right*3 ~ walk^up*3 ~ walk^left*3" interactScript="talk^Wanna race around this tree? ~ talk^Nevermind, you don't look like the athletic type." />
   </Entities>
 </level>

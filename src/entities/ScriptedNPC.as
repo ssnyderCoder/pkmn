@@ -44,11 +44,17 @@ package entities
 		}
 		
 		public function setIdleScript(script:IScript):void {
+			if (script == null) {
+				return;
+			}
 			idleScript = script;
 			idleScript.init(this);
 		}
 		
 		public function setInteractScript(script:IScript):void {
+			if (script == null) {
+				return;
+			}
 			interactScript = script;
 		}
 		

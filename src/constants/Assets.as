@@ -22,6 +22,8 @@ package constants
 		public static const SPRITE_MAN1:uint = 5;
 		public static const SPRITE_GIRL1:uint = 6;
 		public static const SPRITE_GIRL2:uint = 7;
+		public static const SPRITE_LAD:uint = 8;
+		public static const SPRITE_CHILD_GIRL:uint = 9;
 		
 		public static const SPRITE_INDEX_FOSSIL:uint = 142;
 		public static const SPRITE_INDEX_ITEMBALL:uint = 143;
@@ -36,6 +38,8 @@ package constants
 			spriteIDs["man1"] = SPRITE_MAN1;
 			spriteIDs["girl1"] = SPRITE_GIRL1;
 			spriteIDs["girl2"] = SPRITE_GIRL2;
+			spriteIDs["lad"] = SPRITE_LAD;
+			spriteIDs["childgirl"] = SPRITE_CHILD_GIRL;
 		}
 		
 		public static function getSpriteID(spriteName:String):uint {
