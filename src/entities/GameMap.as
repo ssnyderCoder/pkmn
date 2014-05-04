@@ -2,6 +2,7 @@ package entities
 {
 	import constants.Assets;
 	import constants.GC;
+	import entities.script.ScriptFactory;
 	import item.AllItems;
 	import item.InvItem;
 	import item.Item;
@@ -24,6 +25,7 @@ package entities
 		private var _grid:Grid;
 		private var _terrain:String;
 		private const behaviorFactory:BehaviorFactory = new BehaviorFactory();
+		private const scriptFactory:ScriptFactory = new ScriptFactory();
 		public function GameMap(x:Number=0, y:Number=0) 
 		{
 			super(x, y);
@@ -63,6 +65,14 @@ package entities
 				var npc:DialogueNPC = new DialogueNPC(property.@dialogue, uint(property.@x / GC.TILE_SIZE), uint(property.@y / GC.TILE_SIZE), property.@direction, GC.MOVE_SPEED, Assets.getSpriteID(property.@spriteName));
 				npc.assignBehavior(behaviorFactory.getBehavior(property.@behavior));
 				theWorld.add(npc);
+			}
+			
+			for each (property in xmlData.Entities.ScriptedNPC)
+			{
+				var scriptNpc:ScriptedNPC = new ScriptedNPC(uint(property.@x / GC.TILE_SIZE), uint(property.@y / GC.TILE_SIZE), property.@direction, GC.MOVE_SPEED, Assets.getSpriteID(property.@spriteName));
+				
+				scriptNpc.addIdleScript(scriptFactory.createIdleScript(property.@script));
+				theWorld.add(scriptNpc);
 			}
 			
 			for each (property in xmlData.Entities.Transition)
