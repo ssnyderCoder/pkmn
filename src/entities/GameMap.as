@@ -2,6 +2,7 @@ package entities
 {
 	import constants.Assets;
 	import constants.GC;
+	import constants.RenderLayers;
 	import entities.script.ScriptFactory;
 	import item.AllItems;
 	import item.InvItem;

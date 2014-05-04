@@ -2,9 +2,9 @@ package entities.menu
 {
 	import config.TrainerInfo;
 	import constants.Assets;
+	import constants.RenderLayers;
 	import entities.Actor;
 	import entities.menu.MenuBuilder;
-	import entities.RenderLayers;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;
 	import net.flashpunk.Graphic;

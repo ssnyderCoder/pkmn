@@ -26,7 +26,7 @@ package entities
 		{
 			idleScript.update();
 			if (idleScript.isFinished()) {
-				idleScript = null;
+				idleScript.init(this);
 			}
 		}
 		

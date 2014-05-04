@@ -1,6 +1,7 @@
 package entities 
 {
 	import constants.Assets;
+	import constants.RenderLayers;
 	import item.AllItems;
 	import item.Inventory;
 	import item.InvItem;
@@ -24,7 +25,7 @@ package entities
 			sprite.frame = Assets.SPRITE_INDEX_ITEMBALL;
 			
 			type = "actor";
-			layer = RenderLayers.ACTOR;
+			layer = RenderLayers.ACTOR_ITEMBALL;
 			super(x, y, sprite, new Hitbox(12, 12, 2, 2));
 		}
 		

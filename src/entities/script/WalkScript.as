@@ -11,10 +11,12 @@ package entities.script
 	public class WalkScript implements IScript 
 	{
 		
-		private var _npc:ScriptedNPC;
+		private var _user:ScriptedNPC;
 		private var _direction:String;
 		private var _stepsToDo:uint;
 		
+		private var _prevTileX:int = 0;
+		private var _prevTileY:int = 0;
 		private var _stepsDone:uint = 0;
 		public function WalkScript(direction:String=Direction.LEFT, steps:uint=1) 
 		{
@@ -26,15 +28,21 @@ package entities.script
 		
 		public function init(user:ScriptedNPC):void 
 		{
-			_npc = user;
+			_user = user;
 			_stepsDone = 0;
+			_prevTileX = user.tileX;
+			_prevTileY = user.tileY;
 		}
 		
 		public function update():void 
 		{
-			if (_npc.ableToMove() && _stepsDone < _stepsToDo) {
-				_npc.move(_direction);
+			if (_prevTileX != _user.tileX || _prevTileY != _user.tileY) {
+				_prevTileX = _user.tileX;
+				_prevTileY = _user.tileY;
 				_stepsDone++;
+			}
+			if (_user.ableToMove() && _stepsDone < _stepsToDo) {
+				_user.move(_direction);
 			}
 		}
 		

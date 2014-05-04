@@ -14,7 +14,6 @@ package worlds
 	import entities.ITouchable;
 	import entities.menu.Dialogue;
 	import entities.menu.InGameMenu;
-	import entities.RenderLayers;
 	import entities.Teleport;
 	import entities.TransitionScreen;
 	import flash.geom.Point;

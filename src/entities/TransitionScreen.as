@@ -1,5 +1,6 @@
 package entities 
 {
+	import constants.RenderLayers;
 	import flash.geom.Rectangle;
 	import net.flashpunk.Entity;
 	import net.flashpunk.FP;

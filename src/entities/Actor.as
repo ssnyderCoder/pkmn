@@ -3,6 +3,7 @@ package entities
 	import constants.Assets;
 	import constants.Direction;
 	import constants.GC;
+	import constants.RenderLayers;
 	import flash.geom.Point;
 	import net.flashpunk.Entity;
 	import net.flashpunk.graphics.Spritemap;

@@ -1,8 +1,8 @@
 package entities.menu 
 {
 	import constants.Assets;
+	import constants.RenderLayers;
 	import entities.Actor;
-	import entities.RenderLayers;
 	import item.AllItems;
 	import item.Inventory;
 	import item.InvItem;
