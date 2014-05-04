@@ -8,7 +8,7 @@ package entities.script
 	 * ...
 	 * @author Sean Snyder
 	 */
-	public class WalkScript implements IScript 
+	public class WalkScript implements IScript, IScriptBuilder 
 	{
 		
 		private var _user:ScriptedNPC;
@@ -49,6 +49,20 @@ package entities.script
 		public function isFinished():Boolean 
 		{
 			return _stepsDone >= _stepsToDo;
+		}
+		
+		/* INTERFACE entities.script.IScriptBuilder */
+		
+		public function buildScript(params:Array):IScript 
+		{
+			try{
+				var direction:String = params[0];
+				var steps:uint = ((uint)(params[1]));
+				return new WalkScript(direction, steps);
+			} catch (error:Error) {
+				return null;
+			}
+			return null;
 		}
 		
 	}

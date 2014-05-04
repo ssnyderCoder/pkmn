@@ -167,7 +167,8 @@
       <ValueDefinitions>
         <ValueDefinition xsi:type="StringValueDefinition" Name="spriteName" Default="blue" MaxChars="-1" MultiLine="false" />
         <ValueDefinition xsi:type="StringValueDefinition" Name="direction" Default="down" MaxChars="-1" MultiLine="false" />
-        <ValueDefinition xsi:type="StringValueDefinition" Name="script" Default="[idle] walk:left,3" MaxChars="-1" MultiLine="true" />
+        <ValueDefinition xsi:type="StringValueDefinition" Name="idleScript" Default="walk^left*3 ~ walk^right*3" MaxChars="-1" MultiLine="true" />
+        <ValueDefinition xsi:type="StringValueDefinition" Name="interactScript" Default="talk^I like bunnies!" MaxChars="-1" MultiLine="true" />
       </ValueDefinitions>
       <NodesDefinition Enabled="false" Limit="-1" DrawMode="None" Ghost="false" />
     </EntityDefinition>

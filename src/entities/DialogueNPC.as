@@ -19,17 +19,18 @@ package entities
 		
 		public function interact():void
 		{
+			var mapWorld:MapWorld = MapWorld(world);
 			// If the world isn't a map world, this didn't even happen.
-			if (MapWorld(world) != null)
+			if (mapWorld != null)
 			{
 				// Turn to look at the player.
-				setFacing(Direction.GetOppositeDirection(MapWorld(world).player.facing));
+				setFacing(Direction.GetOppositeDirection(mapWorld.player.facing));
 				
 				// Unable to move around while talking
 				_canMove = false;
 				
 				// Spit some game.
-				MapWorld(world).showDialogue(_dialogue, onMovementComplete);
+				mapWorld.showDialogue(_dialogue, onMovementComplete);
 			}
 		}
 		

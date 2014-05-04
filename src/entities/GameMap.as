@@ -72,7 +72,8 @@ package entities
 			{
 				var scriptNpc:ScriptedNPC = new ScriptedNPC(uint(property.@x / GC.TILE_SIZE), uint(property.@y / GC.TILE_SIZE), property.@direction, GC.MOVE_SPEED, Assets.getSpriteID(property.@spriteName));
 				
-				scriptNpc.addIdleScript(scriptFactory.createIdleScript(property.@script));
+				scriptNpc.setIdleScript(scriptFactory.createScript(property.@idleScript));
+				scriptNpc.setInteractScript(scriptFactory.createScript(property.@interactScript));
 				theWorld.add(scriptNpc);
 			}
 			
