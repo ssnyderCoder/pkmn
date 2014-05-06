@@ -14,6 +14,7 @@ package entities.script
 		{
 			scriptBuilders["walk"] = new WalkScript();
 			scriptBuilders["talk"] = new TalkScript();
+			scriptBuilders["give"] = new GiveScript();
 		}
 		
 		public function createScript(scriptText:String):IScript {

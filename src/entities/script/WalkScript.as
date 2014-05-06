@@ -55,6 +55,7 @@ package entities.script
 		
 		public function buildScript(params:Array):IScript 
 		{
+			//direction, steps
 			try{
 				var direction:String = params[0];
 				var steps:uint = ((uint)(params[1]));

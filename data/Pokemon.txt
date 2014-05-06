@@ -1,0 +1,14 @@
+[16]
+Name=PIDGEY
+Type1=NORMAL
+Type2=FLYING
+BaseStats=40,45,40,56,35,35
+GrowthRate=Parabolic
+BaseEXP=50
+EffortPoints=0,0,0,1,0,0
+Rareness=255
+Moves=1,GUST,5,SANDATTACK,12,QUICKATTACK,19,WHIRLWIND,28,WINGATTACK,36,AGILITY,44,MIRRORMOVE
+Height=1,0
+Weight=4.0
+Pokedex=Very docile. If attacked, it will often kick up sand to protect itself rather than fight back.
+Evolutions=PIDGEOTTO,Level,18

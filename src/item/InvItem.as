@@ -34,6 +34,10 @@ package item
 			_quantity = value;
 		}
 		
+		public function clone():InvItem {
+			return new InvItem(_id, _quantity);
+		}
+		
 	}
 
 }
