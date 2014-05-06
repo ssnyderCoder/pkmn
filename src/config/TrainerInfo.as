@@ -23,7 +23,7 @@ package config
 		private var _gameOptions:GameOptions = new GameOptions();
 		private var _inventory:Inventory = new Inventory();
 		private var noSaveFile:Boolean = false; //used only for checking that a file was saved
-		private var _gameVars:GameVars = new Dictionary(); //used for handling events
+		private var _gameVars:GameVars = new GameVars(); //used for handling events
 		
 		public function get gameOptions():GameOptions 
 		{

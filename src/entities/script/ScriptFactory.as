@@ -17,6 +17,8 @@ package entities.script
 			scriptBuilders["give"] = new GiveScript();
 			scriptBuilders["look"] = new LookScript();
 			scriptBuilders["wait"] = new WaitScript();
+			scriptBuilders["cond"] = new ConditionalMultiScript();
+			scriptBuilders["setvar"] = new SetGameVarScript();
 		}
 		
 		public function createScript(scriptText:String):IScript {
@@ -27,11 +29,20 @@ package entities.script
 				{
 					var splitScript:Array = singleScript.split("^");
 					var command:String = StringUtil.trim(splitScript[0]);
-					var parameters:Array = StringUtil.trimArrayElements(((String)(splitScript[1])), "*").split("*");
-					var builder:IScriptBuilder = scriptBuilders[command];
-					var builtScript:IScript = builder.buildScript(parameters);
-					script.addScript(builtScript);
-					
+					if (command == "end") {
+						script = script.parentScript;
+					}
+					else{
+						var parameters:Array = StringUtil.trimArrayElements(((String)(splitScript[1])), "*").split("*");
+						var builder:IScriptBuilder = scriptBuilders[command];
+						var builtScript:IScript = builder.buildScript(parameters);
+						script.addScript(builtScript);
+						if (command == "cond") {
+							var condScript:MultiScript = (MultiScript)(builtScript);
+							condScript.parentScript = script;
+							script = condScript;
+						}
+					}
 				}
 				
 				return script;

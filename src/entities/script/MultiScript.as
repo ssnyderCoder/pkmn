@@ -10,7 +10,8 @@ package entities.script
 	{
 		private var _scripts:Array = new Array();
 		private var _scriptIndex:int = 0;
-		private var _user:ScriptedNPC;
+		protected var _user:ScriptedNPC;
+		private var _parentScript:MultiScript;
 		public function MultiScript() 
 		{
 			
@@ -50,6 +51,16 @@ package entities.script
 		public function isFinished():Boolean 
 		{
 			return _scriptIndex >= _scripts.length;
+		}
+		
+		public function get parentScript():MultiScript 
+		{
+			return _parentScript;
+		}
+		
+		public function set parentScript(value:MultiScript):void 
+		{
+			_parentScript = value;
 		}
 		
 	}

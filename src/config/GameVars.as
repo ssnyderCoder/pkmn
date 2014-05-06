@@ -22,7 +22,7 @@ package config
 			if (name in gameVariables) {
 				return gameVariables[name];
 			}
-			return -1;
+			return 0;
 		}
 		
 		public function save():void 
