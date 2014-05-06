@@ -1,6 +1,7 @@
 package config 
 {
 	import entities.Actor;
+	import flash.utils.Dictionary;
 	import item.Inventory;
 	import net.flashpunk.utils.Data;
 	/**
@@ -22,6 +23,7 @@ package config
 		private var _gameOptions:GameOptions = new GameOptions();
 		private var _inventory:Inventory = new Inventory();
 		private var noSaveFile:Boolean = false; //used only for checking that a file was saved
+		private var _gameVars:GameVars = new Dictionary(); //used for handling events
 		
 		public function get gameOptions():GameOptions 
 		{
@@ -31,6 +33,11 @@ package config
 		public function get inventory():Inventory 
 		{
 			return _inventory;
+		}
+		
+		public function get gameVars():GameVars 
+		{
+			return _gameVars;
 		}
 		
 		public function save(fileName:String, player:Actor):void
@@ -47,8 +54,8 @@ package config
 			Data.writeBool("hasTrainerCard", hasTrainerCard);
 			
 			_gameOptions.save();
-			
 			_inventory.save();
+			_gameVars.save();
 			
 			Data.writeInt("tileX", player.tileX);
 			Data.writeInt("tileY", player.tileY);
@@ -77,6 +84,7 @@ package config
 			
 			_gameOptions.load();
 			_inventory.load();
+			_gameVars.load();
 			
 			player.tileX = Data.readInt("tileX");
 			player.tileY = Data.readInt("tileY");
