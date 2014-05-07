@@ -19,6 +19,7 @@ package entities.script
 			scriptBuilders["wait"] = new WaitScript();
 			scriptBuilders["cond"] = new ConditionalMultiScript();
 			scriptBuilders["setvar"] = new SetGameVarScript();
+			scriptBuilders["behavior"] = new BehaviorScript();
 		}
 		
 		public function createScript(scriptText:String):IScript {
