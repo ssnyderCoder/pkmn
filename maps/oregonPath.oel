@@ -41,6 +41,6 @@
     <DialogueNPC id="2" x="160" y="176" dialogue="Sorry, but I can't allow you to leave.  It's for your own good." spriteName="scientist" direction="up" behavior="watch" />
     <DialogueNPC id="3" x="192" y="96" dialogue="Don't worry. We are safe here...." spriteName="man1" direction="down" behavior="wander" />
     <Item id="4" x="96" y="176" itemName="POKE BALL" quantity="2" />
-    <ScriptedNPC id="5" x="96" y="80" spriteName="lad" direction="down" idleScript="look^down ~ wait^180 ~ look^right ~ wait^60" interactScript="cond^bike*1 ~ talk^Don't try to give it back.  I don't want it.... ~ end ~ cond^bike*0 ~ talk^I was hoping there was more space out here... ~ talk^Sigh... I guess I won't be needing this then.  You take it. ~ talk^ You received a BICYCLE! ~ give^BICYCLE*1 ~ setvar^bike*1 ~ end" />
+    <ScriptedNPC id="5" x="96" y="80" spriteName="lad" direction="down" idleScript="behavior^wander" interactScript="cond^bike*1 ~ talk^Don't try to give it back.  I don't want it.... ~ end ~ cond^bike*0 ~ talk^I was hoping there was more space out here... ~ talk^Sigh... I guess I won't be needing this then.  You take it. ~ talk^ You received a BICYCLE! ~ give^BICYCLE*1 ~ setvar^bike*1 ~ end" />
   </Entities>
 </level>
