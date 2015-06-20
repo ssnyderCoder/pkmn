@@ -12,8 +12,13 @@ package constants
 		[Embed(source = "../../assets/menus.png")] public static const MENU_SPRITES:Class;
 		[Embed(source = "../../assets/badges.png")] public static const BADGE_SPRITES:Class;
 		[Embed(source = "../../assets/trainerCard.png")] public static const TRAINER_CARD:Class;
+		[Embed(source = "../../assets/pokemonBack.png")] public static const BACK_SPRITES:Class;
+		[Embed(source = "../../assets/pokemonFront.png")] public static const FRONT_SPRITES:Class;
+		[Embed(source = "../../assets/EnemyHP.png")] public static const B_ENEMY_HP:Class;
+		[Embed(source = "../../assets/PlayerHP.png")] public static const B_PLAYER_HP:Class;
 		
 		
+		//character sprites
 		public static const SPRITE_RED:uint = 0;
 		public static const SPRITE_REDBIKE:uint = 1;
 		public static const SPRITE_BLUE:uint = 2;
@@ -25,8 +30,13 @@ package constants
 		public static const SPRITE_LAD:uint = 8;
 		public static const SPRITE_CHILD_GIRL:uint = 9;
 		
+		//item sprites
 		public static const SPRITE_INDEX_FOSSIL:uint = 142;
 		public static const SPRITE_INDEX_ITEMBALL:uint = 143;
+		
+		//battle sprites
+		public static const SPITE_BF_PIDGEY:uint = 15;
+		public static const SPITE_BB_PIDGEY:uint = 15;
 		
 		private static const spriteIDs:Dictionary = new Dictionary();
 		{

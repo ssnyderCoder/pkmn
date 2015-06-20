@@ -4,6 +4,7 @@ package
 	import constants.Maps;
 	import net.flashpunk.Engine;
 	import net.flashpunk.FP;
+	import worlds.BattleWorld;
 	import worlds.MapWorld;
 	
 	[SWF(width="640",height="576",backgroundColor="#000000")]
@@ -24,9 +25,9 @@ package
 		
 		override public function init():void
 		{
-			FP.screen.color = 0x000000;
+			FP.screen.color = 0xFFFFFF;
 			FP.screen.scale = 4;
-			FP.world = new MapWorld();
+			FP.world = new BattleWorld();
 			super.init();
 		}
 	}
